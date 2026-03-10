@@ -40,26 +40,26 @@ export default function DashboardLayout({
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Topbar */}
-      <header className="sticky top-0 z-50 bg-gradient-to-r from-primary via-primary to-primary-light shadow-xl animate-slide-down border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-16">
+      <header className="sticky top-0 z-50 glass-dark shadow-2xl animate-slide-down">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
+          <div className="flex items-center justify-between h-[4.25rem]">
             {/* Logo + Nombre */}
             <Link href="/dashboard" className="flex items-center gap-3 shrink-0 group">
-              <div className="bg-white rounded-lg p-1 shadow-md group-hover:shadow-lg transition-shadow">
+              <div className="bg-white rounded-xl p-1.5 shadow-lg shadow-primary/30 group-hover:shadow-xl transition-shadow">
                 <LogoColegio variante="sidebar" />
               </div>
               <div className="hidden sm:block">
-                <p className="font-bold text-white text-sm leading-tight">
+                <p className="font-bold text-white text-sm leading-tight tracking-tight">
                   San Agustín
                 </p>
-                <p className="text-[11px] text-white/50 font-medium">
-                  Control de Comedores
+                <p className="text-[10px] text-white/40 font-semibold uppercase tracking-wider">
+                  Comedores
                 </p>
               </div>
             </Link>
 
             {/* Nav central — desktop */}
-            <nav className="hidden md:flex items-center gap-1 bg-white/5 rounded-xl p-1">
+            <nav className="hidden md:flex items-center gap-1 bg-white/[0.06] rounded-2xl p-1.5 border border-white/[0.06]">
               {enlacesNav.map((enlace) => {
                 const activo = ruta === enlace.href;
                 const Icono = enlace.icono;
@@ -67,16 +67,16 @@ export default function DashboardLayout({
                   <Link
                     key={enlace.href}
                     href={enlace.href}
-                    className={`relative flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    className={`relative flex items-center gap-2.5 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-250 ${
                       activo
-                        ? "text-white bg-white/15 shadow-sm"
-                        : "text-white/60 hover:text-white hover:bg-white/10"
+                        ? "text-white bg-white/[0.14] shadow-sm shadow-white/5"
+                        : "text-white/50 hover:text-white/90 hover:bg-white/[0.07]"
                     }`}
                   >
-                    <Icono size={18} />
-                    <span>{enlace.etiqueta}</span>
+                    <Icono size={17} strokeWidth={activo ? 2.5 : 2} />
+                    <span className="font-semibold">{enlace.etiqueta}</span>
                     {activo && (
-                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-0.5 bg-accent rounded-full" />
+                      <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-6 h-[3px] bg-gradient-to-r from-accent to-accent-light rounded-full" />
                     )}
                   </Link>
                 );
@@ -84,38 +84,38 @@ export default function DashboardLayout({
             </nav>
 
             {/* Derecha: fecha + notificación + avatar + logout */}
-            <div className="hidden md:flex items-center gap-3">
-              <div className="flex items-center gap-1.5 text-white/40 text-xs bg-white/5 px-3 py-1.5 rounded-lg">
-                <Calendar size={12} />
-                <span className="capitalize">{fechaHoy}</span>
+            <div className="hidden md:flex items-center gap-2.5">
+              <div className="flex items-center gap-2 text-white/35 text-xs bg-white/[0.05] px-3.5 py-2 rounded-xl border border-white/[0.06]">
+                <Calendar size={13} />
+                <span className="capitalize font-medium">{fechaHoy}</span>
               </div>
-              <div className="h-5 w-px bg-white/15" />
-              <button className="relative text-white/50 hover:text-white transition-colors p-1.5 hover:bg-white/10 rounded-lg">
+              <div className="h-5 w-px bg-white/10" />
+              <button className="relative text-white/40 hover:text-white transition-colors p-2 hover:bg-white/[0.08] rounded-xl">
                 <Bell size={18} />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-accent rounded-full" />
+                <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-gradient-to-br from-accent to-accent-light rounded-full border-2 border-primary" />
               </button>
-              <div className="flex items-center gap-2.5 bg-white/10 rounded-xl px-3 py-1.5">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-accent to-accent-light flex items-center justify-center text-primary font-bold text-xs shadow-md">
+              <div className="flex items-center gap-2.5 bg-white/[0.08] rounded-2xl px-3.5 py-2 border border-white/[0.06]">
+                <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-accent to-accent-light flex items-center justify-center text-primary font-black text-xs shadow-lg shadow-accent/20">
                   AD
                 </div>
                 <div className="hidden lg:block">
-                  <p className="text-white text-xs font-semibold">Admin</p>
-                  <p className="text-white/40 text-[10px]">Administrador</p>
+                  <p className="text-white text-xs font-bold tracking-tight">Admin</p>
+                  <p className="text-white/30 text-[10px] font-medium">Administrador</p>
                 </div>
               </div>
               <Link
                 href="/"
-                className="text-white/40 hover:text-white transition-colors p-1.5 hover:bg-white/10 rounded-lg"
+                className="text-white/30 hover:text-white/80 transition-colors p-2 hover:bg-white/[0.08] rounded-xl"
                 title="Cerrar sesión"
               >
-                <LogOut size={18} />
+                <LogOut size={17} />
               </Link>
             </div>
 
             {/* Hamburguesa — mobile */}
             <button
               onClick={() => setMenuAbierto(!menuAbierto)}
-              className="md:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-colors"
+              className="md:hidden text-white p-2.5 hover:bg-white/10 rounded-xl transition-colors"
               aria-label="Menú"
             >
               {menuAbierto ? <X size={22} /> : <Menu size={22} />}
@@ -125,8 +125,8 @@ export default function DashboardLayout({
 
         {/* Menú móvil */}
         {menuAbierto && (
-          <div className="md:hidden border-t border-white/10 bg-primary-dark animate-slide-down">
-            <div className="px-4 py-3 space-y-1">
+          <div className="md:hidden border-t border-white/[0.06] bg-primary-dark/95 backdrop-blur-xl animate-slide-down">
+            <div className="px-5 py-4 space-y-1">
               {enlacesNav.map((enlace) => {
                 const activo = ruta === enlace.href;
                 const Icono = enlace.icono;
@@ -135,29 +135,29 @@ export default function DashboardLayout({
                     key={enlace.href}
                     href={enlace.href}
                     onClick={() => setMenuAbierto(false)}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-colors ${
+                    className={`flex items-center gap-3 px-4 py-3.5 rounded-xl text-sm transition-all ${
                       activo
-                        ? "bg-white/15 text-white font-semibold"
-                        : "text-white/60 hover:bg-white/10 hover:text-white"
+                        ? "bg-white/[0.12] text-white font-bold"
+                        : "text-white/50 hover:bg-white/[0.06] hover:text-white"
                     }`}
                   >
                     <Icono size={18} />
                     <span>{enlace.etiqueta}</span>
                     {activo && (
-                      <span className="ml-auto w-2 h-2 rounded-full bg-accent" />
+                      <span className="ml-auto w-2.5 h-2.5 rounded-full bg-gradient-to-br from-accent to-accent-light" />
                     )}
                   </Link>
                 );
               })}
-              <div className="border-t border-white/10 pt-3 mt-3">
-                <div className="flex items-center gap-2 px-4 py-2 text-white/40 text-xs">
+              <div className="border-t border-white/[0.06] pt-3 mt-3">
+                <div className="flex items-center gap-2 px-4 py-2 text-white/30 text-xs">
                   <Calendar size={14} />
                   <span className="capitalize">{fechaHoy}</span>
                 </div>
                 <Link
                   href="/"
                   onClick={() => setMenuAbierto(false)}
-                  className="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white text-sm transition-colors"
+                  className="flex items-center gap-3 px-4 py-3.5 text-white/50 hover:text-white text-sm transition-colors"
                 >
                   <LogOut size={18} />
                   <span>Cerrar sesión</span>
@@ -169,7 +169,7 @@ export default function DashboardLayout({
       </header>
 
       {/* Contenido principal */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 animate-fade-in">
+      <main className="max-w-7xl mx-auto px-5 sm:px-8 py-8 animate-fade-in">
         {children}
       </main>
     </div>

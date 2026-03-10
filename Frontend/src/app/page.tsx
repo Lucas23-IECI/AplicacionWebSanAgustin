@@ -5,11 +5,13 @@ import {
   BarChart3,
   ShieldCheck,
   ChevronRight,
-  UtensilsCrossed,
   ArrowRight,
   Utensils,
   ClipboardCheck,
   PieChart,
+  Zap,
+  CheckCircle2,
+  Sparkles,
 } from "lucide-react";
 import LogoColegio from "@/components/LogoColegio";
 
@@ -18,25 +20,28 @@ const funcionalidades = [
     icono: Users,
     titulo: "Registro de Estudiantes",
     descripcion:
-      "Gestión de estudiantes con tarjetas QR únicas para identificación rápida en el comedor.",
-    color: "bg-primary/10 text-primary",
-    iconBg: "bg-primary",
+      "Gestión completa de estudiantes con tarjetas QR únicas para identificación rápida en el comedor.",
+    color: "from-primary to-primary-light",
+    accentColor: "text-primary",
+    bgLight: "bg-primary/8",
   },
   {
     icono: QrCode,
     titulo: "Control de Almuerzos",
     descripcion:
-      "Registro diario de consumo mediante lectura de códigos QR con pistola USB. Sin necesidad de celulares.",
-    color: "bg-accent/10 text-accent",
-    iconBg: "bg-accent",
+      "Registro diario de consumo mediante lectura de códigos QR con pistola USB. Sin celulares.",
+    color: "from-accent to-accent-light",
+    accentColor: "text-accent",
+    bgLight: "bg-accent/8",
   },
   {
     icono: BarChart3,
     titulo: "Reportes y Estadísticas",
     descripcion:
-      "Informes detallados de consumo diario, semanal y mensual para la administración del colegio.",
-    color: "bg-success/10 text-success",
-    iconBg: "bg-success",
+      "Informes detallados de consumo diario, semanal y mensual para la administración.",
+    color: "from-success to-emerald-400",
+    accentColor: "text-success",
+    bgLight: "bg-success/8",
   },
 ];
 
@@ -45,123 +50,153 @@ const pasos = [
     numero: "01",
     icono: ClipboardCheck,
     titulo: "Registrar estudiantes",
-    desc: "Cargue la lista de estudiantes y genere tarjetas QR individuales.",
+    desc: "Cargue la lista de estudiantes y genere tarjetas QR individuales para cada uno.",
+    color: "from-primary to-primary-light",
   },
   {
     numero: "02",
     icono: QrCode,
     titulo: "Escanear en comedor",
     desc: "Use la pistola lectora USB para registrar cada almuerzo al instante.",
+    color: "from-accent to-accent-light",
   },
   {
     numero: "03",
     icono: PieChart,
     titulo: "Consultar reportes",
     desc: "Visualice estadísticas diarias, semanales y por curso en tiempo real.",
+    color: "from-purple to-purple-light",
   },
+];
+
+const beneficios = [
+  "Sin conexión a internet requerida",
+  "Registro en menos de 1 segundo",
+  "Exportación de reportes a Excel",
+  "Soporte para múltiples cursos",
 ];
 
 export default function PaginaPrincipal() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      {/* Cabecera */}
-      <header className="sticky top-0 z-50 bg-primary/95 backdrop-blur-md text-white shadow-xl border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 flex items-center justify-between h-16">
+      {/* ═══════════ CABECERA ═══════════ */}
+      <header className="sticky top-0 z-50 bg-primary/95 backdrop-blur-xl text-white border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 flex items-center justify-between h-[4.5rem]">
           <div className="flex items-center gap-3">
-            <div className="bg-white rounded-lg p-1 shadow-md">
+            <div className="bg-white rounded-xl p-1.5 shadow-lg shadow-primary/30">
               <LogoColegio variante="chico" />
             </div>
             <div className="hidden sm:block">
-              <h1 className="text-base font-bold leading-tight">
+              <h1 className="text-sm font-bold leading-tight tracking-tight">
                 Colegio San Agustín
               </h1>
-              <p className="text-[11px] text-white/50 font-medium">Concepción</p>
+              <p className="text-[11px] text-white/40 font-medium">
+                Concepción
+              </p>
             </div>
           </div>
-          <nav className="flex items-center gap-3">
-            <Link href="/login" className="text-sm font-medium text-white/80 hover:text-white transition-colors hidden sm:block">
+          <nav className="flex items-center gap-4">
+            <Link
+              href="/login"
+              className="text-sm font-medium text-white/70 hover:text-white transition-colors hidden sm:block"
+            >
               Iniciar Sesión
             </Link>
-            <Link href="/dashboard" className="btn btn-accent text-sm shadow-lg shadow-accent/25">
+            <Link
+              href="/dashboard"
+              className="btn btn-accent text-sm shadow-lg shadow-accent/30"
+            >
+              <Zap size={16} />
               Panel de Control
             </Link>
           </nav>
         </div>
       </header>
 
-      {/* Hero — visual impactante */}
+      {/* ═══════════ HERO ═══════════ */}
       <section className="relative bg-gradient-to-br from-primary via-primary-light to-primary overflow-hidden">
-        {/* Patrón decorativo de fondo */}
-        <div className="absolute inset-0">
-          <div className="absolute top-[-80px] left-[-60px] w-[500px] h-[500px] bg-accent/20 rounded-full blur-[120px]" />
-          <div className="absolute bottom-[-100px] right-[-80px] w-[600px] h-[600px] bg-purple/25 rounded-full blur-[140px]" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white/5 rounded-full blur-[100px]" />
-          {/* Patrón geométrico sutil */}
-          <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
+        {/* Decoraciones de fondo */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-[-120px] left-[-80px] w-[600px] h-[600px] bg-accent/15 rounded-full blur-[140px] animate-float" />
+          <div className="absolute bottom-[-150px] right-[-100px] w-[700px] h-[700px] bg-purple/20 rounded-full blur-[160px]" />
+          <div className="absolute top-[40%] left-[30%] w-[500px] h-[500px] bg-white/[0.03] rounded-full blur-[100px]" />
+          {/* Grid pattern */}
+          <div
+            className="absolute inset-0 opacity-[0.04]"
+            style={{
+              backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.4) 1px, transparent 0)`,
+              backgroundSize: "32px 32px",
+            }}
+          />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-6 sm:px-8 py-24 md:py-32 lg:py-36">
-          <div className="flex flex-col lg:flex-row items-center gap-16">
+        <div className="relative max-w-7xl mx-auto px-6 sm:px-10 py-20 sm:py-28 lg:py-36">
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
             {/* Texto hero */}
             <div className="flex-1 text-center lg:text-left animate-slide-up">
-              <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm text-white text-xs font-semibold px-4 py-2 rounded-full mb-8 border border-white/20 shadow-lg">
+              <div className="inline-flex items-center gap-2 glass text-white text-xs font-semibold px-5 py-2.5 rounded-full mb-8 shadow-lg">
                 <ShieldCheck size={14} className="text-accent" />
                 <span>Plataforma institucional segura</span>
               </div>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.1] mb-6 tracking-tight">
-                Sistema de Control
-                <br />
-                <span className="bg-gradient-to-r from-accent via-accent-light to-accent bg-clip-text text-transparent">
-                  de Comedores
-                </span>
+
+              <h2 className="text-4xl sm:text-5xl lg:text-[3.5rem] xl:text-6xl font-black text-white leading-[1.08] mb-6 tracking-tight">
+                Sistema de Control{" "}
+                <span className="block mt-1 gradient-text">de Comedores</span>
               </h2>
-              <p className="text-white/70 text-lg sm:text-xl max-w-xl mb-10 leading-relaxed">
+
+              <p className="text-white/60 text-base sm:text-lg lg:text-xl max-w-xl mb-10 leading-relaxed mx-auto lg:mx-0">
                 Gestión integral del servicio de alimentación para estudiantes
-                del Colegio San Agustín de Concepción. Control de almuerzos,
-                registro de consumo y reportes en tiempo real.
+                del Colegio San Agustín de Concepción. Control, registro y
+                reportes en tiempo real.
               </p>
+
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link
                   href="/dashboard"
-                  className="btn btn-accent text-base px-8 py-3.5 shadow-xl shadow-accent/30 hover:shadow-accent/50 inline-flex items-center gap-2 text-lg font-bold"
+                  className="btn btn-accent text-base px-8 py-4 shadow-xl shadow-accent/30 hover:shadow-accent/50 text-base font-bold glow-accent"
                 >
                   Ir al Panel
-                  <ArrowRight size={20} />
+                  <ArrowRight size={18} />
                 </Link>
                 <Link
                   href="/login"
-                  className="btn text-white border-2 border-white/30 hover:bg-white/15 hover:border-white/50 text-base px-8 py-3.5 backdrop-blur-sm"
+                  className="btn glass text-white hover:bg-white/20 text-base px-8 py-4 font-semibold"
                 >
                   Iniciar Sesión
                 </Link>
               </div>
 
-              {/* Stats mini */}
-              <div className="flex flex-wrap justify-center lg:justify-start gap-8 mt-12 pt-8 border-t border-white/10">
+              {/* Stats inline */}
+              <div className="flex flex-wrap justify-center lg:justify-start gap-10 mt-14 pt-8 border-t border-white/10">
                 {[
                   { num: "500+", label: "Estudiantes" },
                   { num: "98%", label: "Precisión" },
                   { num: "< 1s", label: "Por escaneo" },
                 ].map((stat) => (
                   <div key={stat.label} className="text-center lg:text-left">
-                    <p className="text-2xl font-bold text-white">{stat.num}</p>
-                    <p className="text-white/40 text-xs font-medium uppercase tracking-wider">{stat.label}</p>
+                    <p className="text-3xl font-black text-white tracking-tight">
+                      {stat.num}
+                    </p>
+                    <p className="text-white/35 text-xs font-semibold uppercase tracking-widest mt-1">
+                      {stat.label}
+                    </p>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Logo grande + decoración */}
-            <div className="flex-shrink-0 animate-scale-in">
+            {/* Logo + decoración */}
+            <div className="flex-shrink-0 animate-scale-in hidden md:block">
               <div className="relative">
-                {/* Anillo decorativo */}
-                <div className="absolute -inset-4 bg-gradient-to-br from-accent/30 to-purple/30 rounded-3xl blur-xl" />
-                <div className="relative bg-white/10 backdrop-blur-md rounded-3xl p-10 border border-white/20 shadow-2xl">
+                <div className="absolute -inset-6 bg-gradient-to-br from-accent/25 via-purple/15 to-accent/10 rounded-[2rem] blur-2xl animate-pulse-soft" />
+                <div className="relative glass rounded-[2rem] p-10 sm:p-12 shadow-2xl">
                   <LogoColegio variante="grande" />
-                  <div className="mt-6 text-center">
-                    <div className="inline-flex items-center gap-2 bg-accent/20 backdrop-blur-sm px-4 py-2 rounded-full">
-                      <Utensils className="text-accent" size={18} />
-                      <p className="text-white/80 text-sm font-semibold">Control de Comedores</p>
+                  <div className="mt-8 text-center">
+                    <div className="inline-flex items-center gap-2.5 bg-accent/15 backdrop-blur-sm px-5 py-2.5 rounded-full border border-accent/20">
+                      <Utensils className="text-accent" size={16} />
+                      <p className="text-white/80 text-sm font-bold tracking-tight">
+                        Control de Comedores
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -170,51 +205,64 @@ export default function PaginaPrincipal() {
           </div>
         </div>
 
-        {/* Wave divider mejorado */}
-        <div className="relative h-24">
-          <svg viewBox="0 0 1440 120" fill="none" preserveAspectRatio="none" className="absolute bottom-0 left-0 w-full h-full">
+        {/* Wave divider */}
+        <div className="relative h-20 sm:h-28">
+          <svg
+            viewBox="0 0 1440 100"
+            fill="none"
+            preserveAspectRatio="none"
+            className="absolute bottom-0 left-0 w-full h-full"
+          >
             <path
-              d="M0 120V60C360 0 720 80 1080 40C1260 20 1380 30 1440 40V120H0Z"
+              d="M0 100V50C240 10 480 70 720 45C960 20 1200 60 1440 35V100H0Z"
               fill="#f8fafc"
             />
           </svg>
         </div>
       </section>
 
-      {/* Funcionalidades */}
-      <section className="bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 py-20 md:py-28">
-          <div className="text-center mb-16 animate-fade-in">
-            <p className="text-sm font-bold text-accent uppercase tracking-widest mb-3">Funcionalidades</p>
-            <h3 className="text-3xl sm:text-4xl font-black text-gray-800 mb-4">
+      {/* ═══════════ FUNCIONALIDADES ═══════════ */}
+      <section className="bg-gray-50 relative">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 py-20 sm:py-28">
+          <div className="text-center mb-14 animate-fade-in">
+            <div className="inline-flex items-center gap-2 bg-accent/10 text-accent text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-5">
+              <Sparkles size={14} />
+              Funcionalidades
+            </div>
+            <h3 className="text-3xl sm:text-4xl font-black text-gray-900 mb-4 tracking-tight">
               Todo lo que necesitas
             </h3>
-            <p className="text-gray-500 max-w-lg mx-auto text-lg">
+            <p className="text-gray-500 max-w-md mx-auto text-base sm:text-lg leading-relaxed">
               Herramientas diseñadas para la gestión eficiente del comedor
               escolar.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             {funcionalidades.map((f, i) => {
               const Icono = f.icono;
               return (
                 <div
                   key={f.titulo}
-                  className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
-                  style={{ animationDelay: `${i * 100}ms` }}
+                  className="feature-card group"
+                  style={{ animationDelay: `${i * 120}ms` }}
                 >
+                  {/* Icono con gradiente */}
                   <div
-                    className={`w-14 h-14 rounded-2xl ${f.iconBg} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}
+                    className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${f.color} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-400`}
                   >
-                    <Icono size={28} className="text-white" />
+                    <Icono size={26} className="text-white" />
                   </div>
-                  <h4 className="text-xl font-bold text-gray-800 mb-3">
+                  <h4 className="text-xl font-bold text-gray-900 mb-3 tracking-tight">
                     {f.titulo}
                   </h4>
-                  <p className="text-gray-500 leading-relaxed">
+                  <p className="text-gray-500 leading-relaxed text-[0.95rem]">
                     {f.descripcion}
                   </p>
+                  {/* Decoración esquina */}
+                  <div
+                    className={`absolute top-0 right-0 w-24 h-24 ${f.bgLight} rounded-bl-[3rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                  />
                 </div>
               );
             })}
@@ -222,34 +270,51 @@ export default function PaginaPrincipal() {
         </div>
       </section>
 
-      {/* Cómo funciona */}
-      <section className="bg-white">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 py-20 md:py-28">
-          <div className="text-center mb-16">
-            <p className="text-sm font-bold text-primary uppercase tracking-widest mb-3">Proceso</p>
-            <h3 className="text-3xl sm:text-4xl font-black text-gray-800 mb-4">
+      {/* ═══════════ CÓMO FUNCIONA ═══════════ */}
+      <section className="bg-white relative overflow-hidden">
+        {/* Decoración de fondo sutil */}
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/[0.02] rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-accent/[0.03] rounded-full blur-[80px]" />
+
+        <div className="relative max-w-7xl mx-auto px-6 sm:px-10 py-20 sm:py-28">
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 bg-primary/8 text-primary text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-5">
+              <Zap size={14} />
+              Proceso
+            </div>
+            <h3 className="text-3xl sm:text-4xl font-black text-gray-900 mb-4 tracking-tight">
               ¿Cómo funciona?
             </h3>
-            <p className="text-gray-500 max-w-lg mx-auto text-lg">
+            <p className="text-gray-500 max-w-md mx-auto text-base sm:text-lg leading-relaxed">
               Tres pasos simples para controlar el comedor escolar
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 relative">
             {/* Línea conectora */}
-            <div className="hidden md:block absolute top-16 left-[20%] right-[20%] h-0.5 bg-gradient-to-r from-primary/20 via-accent/40 to-success/20" />
+            <div className="hidden md:block absolute top-[3.5rem] left-[16%] right-[16%] h-[2px]">
+              <div className="w-full h-full bg-gradient-to-r from-primary/20 via-accent/30 to-purple/20 rounded-full" />
+            </div>
 
-            {pasos.map((paso, i) => {
+            {pasos.map((paso) => {
               const Icono = paso.icono;
               return (
-                <div key={paso.numero} className="relative text-center group">
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary text-white text-xl font-black mb-6 shadow-xl shadow-primary/25 group-hover:scale-110 transition-transform relative z-10">
-                    {paso.numero}
+                <div
+                  key={paso.numero}
+                  className="relative text-center group"
+                >
+                  <div
+                    className={`inline-flex items-center justify-center w-[4.5rem] h-[4.5rem] rounded-2xl bg-gradient-to-br ${paso.color} text-white mb-6 shadow-xl group-hover:scale-110 group-hover:shadow-2xl transition-all duration-300 relative z-10`}
+                  >
+                    <Icono size={30} />
                   </div>
-                  <h4 className="text-lg font-bold text-gray-800 mb-2">
+                  <div className="text-xs font-black text-gray-300 uppercase tracking-widest mb-2">
+                    Paso {paso.numero}
+                  </div>
+                  <h4 className="text-lg font-bold text-gray-900 mb-3 tracking-tight">
                     {paso.titulo}
                   </h4>
-                  <p className="text-gray-500 leading-relaxed max-w-xs mx-auto">
+                  <p className="text-gray-500 leading-relaxed max-w-xs mx-auto text-[0.95rem]">
                     {paso.desc}
                   </p>
                 </div>
@@ -259,23 +324,90 @@ export default function PaginaPrincipal() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="relative bg-gradient-to-br from-primary via-primary-light to-primary overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-[-50px] right-[-50px] w-[400px] h-[400px] bg-accent/15 rounded-full blur-[100px]" />
-          <div className="absolute bottom-[-50px] left-[-50px] w-[300px] h-[300px] bg-purple/20 rounded-full blur-[80px]" />
+      {/* ═══════════ BENEFICIOS ═══════════ */}
+      <section className="bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 py-20 sm:py-28">
+          <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-2">
+              {/* Lado izquierdo - gradiente */}
+              <div className="bg-gradient-to-br from-primary via-primary-light to-primary p-10 sm:p-14 flex flex-col justify-center relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-48 h-48 bg-accent/10 rounded-full blur-[60px]" />
+                <div className="relative">
+                  <h3 className="text-3xl font-black text-white mb-4 tracking-tight">
+                    ¿Por qué elegirnos?
+                  </h3>
+                  <p className="text-white/60 text-base leading-relaxed mb-8">
+                    Un sistema diseñado específicamente para las necesidades del
+                    comedor escolar chileno.
+                  </p>
+                  <div className="space-y-4">
+                    {beneficios.map((b) => (
+                      <div
+                        key={b}
+                        className="flex items-center gap-3"
+                      >
+                        <div className="flex-shrink-0 w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center">
+                          <CheckCircle2
+                            size={14}
+                            className="text-accent"
+                          />
+                        </div>
+                        <span className="text-white/80 text-sm font-medium">
+                          {b}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              {/* Lado derecho - logo */}
+              <div className="p-10 sm:p-14 flex flex-col items-center justify-center bg-gray-50/50">
+                <LogoColegio variante="grande" />
+                <p className="text-gray-400 text-sm mt-6 font-medium text-center">
+                  Colegio San Agustín Concepción
+                </p>
+                <Link
+                  href="/dashboard"
+                  className="btn btn-primary mt-8 px-8 py-3.5 shadow-lg shadow-primary/20"
+                >
+                  Explorar el Sistema
+                  <ChevronRight size={18} />
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="relative max-w-7xl mx-auto px-6 sm:px-8 py-20 text-center">
-          <h3 className="text-3xl sm:text-4xl font-black text-white mb-4">
-            ¿Listo para comenzar?
+      </section>
+
+      {/* ═══════════ CTA FINAL ═══════════ */}
+      <section className="relative bg-gradient-to-br from-primary via-primary-light to-primary overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-[-60px] right-[-60px] w-[500px] h-[500px] bg-accent/12 rounded-full blur-[120px]" />
+          <div className="absolute bottom-[-60px] left-[-60px] w-[400px] h-[400px] bg-purple/15 rounded-full blur-[100px]" />
+          <div
+            className="absolute inset-0 opacity-[0.03]"
+            style={{
+              backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.4) 1px, transparent 0)`,
+              backgroundSize: "24px 24px",
+            }}
+          />
+        </div>
+        <div className="relative max-w-3xl mx-auto px-6 sm:px-10 py-20 sm:py-24 text-center">
+          <div className="inline-flex items-center gap-2 glass text-white/80 text-xs font-semibold px-4 py-2 rounded-full mb-8">
+            <Sparkles size={14} className="text-accent" />
+            Comienza ahora
+          </div>
+          <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-5 tracking-tight leading-tight">
+            ¿Listo para modernizar{" "}
+            <span className="gradient-text">tu comedor?</span>
           </h3>
-          <p className="text-white/60 mb-10 max-w-lg mx-auto text-lg">
+          <p className="text-white/50 mb-10 max-w-lg mx-auto text-base sm:text-lg leading-relaxed">
             Accede al panel de control para gestionar el comedor de manera
             eficiente y profesional.
           </p>
           <Link
             href="/dashboard"
-            className="btn btn-accent text-lg px-10 py-4 shadow-xl shadow-accent/30 inline-flex items-center gap-3 font-bold"
+            className="btn btn-accent text-lg px-10 py-4 shadow-xl shadow-accent/30 glow-accent font-bold"
           >
             Acceder al Sistema
             <ArrowRight size={20} />
@@ -283,22 +415,24 @@ export default function PaginaPrincipal() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-primary-dark">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 py-10">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+      {/* ═══════════ FOOTER ═══════════ */}
+      <footer className="bg-primary-dark border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 py-10">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="bg-white rounded-lg p-1">
+              <div className="bg-white rounded-xl p-1.5 shadow-md">
                 <LogoColegio variante="navbar" />
               </div>
               <div>
-                <p className="font-bold text-white text-sm">
+                <p className="font-bold text-white text-sm tracking-tight">
                   Colegio San Agustín Concepción
                 </p>
-                <p className="text-white/40 text-xs">Sistema de Control de Comedores</p>
+                <p className="text-white/30 text-xs">
+                  Sistema de Control de Comedores
+                </p>
               </div>
             </div>
-            <p className="text-white/30 text-sm">
+            <p className="text-white/25 text-sm">
               © {new Date().getFullYear()} — Todos los derechos reservados
             </p>
           </div>
