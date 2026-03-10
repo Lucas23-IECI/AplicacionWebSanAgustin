@@ -23,7 +23,8 @@ Este proyecto nace de la necesidad del colegio de digitalizar el control de come
 git clone https://github.com/Lucas23-IECI/AplicacionWebSanAgustin.git
 cd AplicacionWebSanAgustin
 
-# Instalar dependencias
+# Instalar dependencias del Frontend
+cd Frontend
 npm install
 
 # Ejecutar en modo desarrollo
@@ -35,16 +36,23 @@ Abrir [http://localhost:3000](http://localhost:3000) en el navegador.
 ## Estructura del Proyecto
 
 ```
-src/
-├── app/                  → Páginas y rutas (App Router)
-│   ├── dashboard/        → Panel de control administrativo
-│   │   ├── estudiantes/  → Gestión de estudiantes
-│   │   ├── registro/     → Registro diario de almuerzos
-│   │   └── reportes/     → Reportes y estadísticas
-│   └── page.tsx          → Página principal
-├── components/           → Componentes reutilizables
-├── lib/                  → Utilidades y configuración
-└── types/                → Definiciones de tipos TypeScript
+AplicacionWebSanAgustin/
+├── .github/              → CI/CD y plantillas de GitHub
+├── Frontend/             → Aplicación Next.js (interfaz web)
+│   ├── src/
+│   │   ├── app/          → Páginas y rutas (App Router)
+│   │   │   ├── dashboard/    → Panel de control
+│   │   │   │   ├── estudiantes/
+│   │   │   │   ├── registro/
+│   │   │   │   └── reportes/
+│   │   │   └── login/    → Inicio de sesión
+│   │   ├── components/   → Componentes reutilizables
+│   │   ├── lib/          → Utilidades y datos
+│   │   └── types/        → Tipos TypeScript
+│   └── public/           → Imágenes y archivos estáticos
+├── Backend/              → API y lógica del servidor (por implementar)
+├── CONTRIBUTING.md       → Guía de contribución
+└── README.md             → Este archivo
 ```
 
 ## Flujo de Git
