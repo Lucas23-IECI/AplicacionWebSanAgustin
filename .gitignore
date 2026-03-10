@@ -41,3 +41,7 @@ next-env.d.ts
 
 # contexto (archivos privados del equipo)
 contexto/
+
+# agentes y skills
+.agents/
+skills-lock.json

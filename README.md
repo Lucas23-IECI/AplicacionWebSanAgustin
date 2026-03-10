@@ -72,7 +72,7 @@ git push origin feat/nombre-funcionalidad
 
 ## Equipo
 
-Proyecto de Práctica 2 — Ingeniería Civil en Informática
+Proyecto de Práctica 2 — Ingeniería de Ejecución en Computación e Informática
 
 ## Licencia
 
