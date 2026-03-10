@@ -1,9 +1,7 @@
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA_DIR = path.join(__dirname, "..", "..", "data");
+const DATA_DIR = path.join(process.cwd(), "data");
 const ESTUDIANTES_FILE = path.join(DATA_DIR, "estudiantes.json");
 const REGISTROS_FILE = path.join(DATA_DIR, "registros.json");
 
