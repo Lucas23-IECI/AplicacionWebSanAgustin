@@ -1,142 +1,197 @@
-import LogoColegio from "@/components/LogoColegio";
 import Link from "next/link";
+import {
+  Users,
+  QrCode,
+  BarChart3,
+  ShieldCheck,
+  ChevronRight,
+  UtensilsCrossed,
+} from "lucide-react";
+import LogoColegio from "@/components/LogoColegio";
+
+const funcionalidades = [
+  {
+    icono: Users,
+    titulo: "Registro de Estudiantes",
+    descripcion:
+      "Gestión de estudiantes con tarjetas QR únicas para identificación rápida en el comedor.",
+    color: "bg-primary/10 text-primary",
+  },
+  {
+    icono: QrCode,
+    titulo: "Control de Almuerzos",
+    descripcion:
+      "Registro diario de consumo mediante lectura de códigos QR con pistola USB. Sin necesidad de celulares.",
+    color: "bg-accent/10 text-accent",
+  },
+  {
+    icono: BarChart3,
+    titulo: "Reportes y Estadísticas",
+    descripcion:
+      "Informes detallados de consumo diario, semanal y mensual para la administración del colegio.",
+    color: "bg-success/10 text-success",
+  },
+];
 
 export default function PaginaPrincipal() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Cabecera */}
-      <header style={{ backgroundColor: "var(--color-primary)" }} className="text-white py-4 px-6 shadow-lg">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-4">
+      <header className="sticky top-0 z-50 bg-primary text-white shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
+          <div className="flex items-center gap-3">
             <div className="bg-white rounded-lg p-1">
               <LogoColegio variante="chico" />
             </div>
-            <div>
-              <h1 className="text-xl font-bold">Colegio San Agustín</h1>
-              <p className="text-sm text-blue-200">
-                Sistema de Control de Comedores
-              </p>
+            <div className="hidden sm:block">
+              <h1 className="text-base font-bold leading-tight">
+                Colegio San Agustín
+              </h1>
+              <p className="text-[11px] text-white/60">Concepción</p>
             </div>
           </div>
-          <nav className="flex gap-3">
-            <Link
-              href="/login"
-              className="px-4 py-2 rounded-lg border border-white/30 hover:bg-white/10 transition-colors text-sm"
-            >
+          <nav className="flex items-center gap-2">
+            <Link href="/login" className="btn btn-outline text-white border-white/30 hover:bg-white/10 text-sm">
               Iniciar Sesión
             </Link>
-            <Link
-              href="/dashboard"
-              className="px-4 py-2 rounded-lg text-sm font-semibold transition-colors"
-              style={{ backgroundColor: "var(--color-accent)" }}
-            >
+            <Link href="/dashboard" className="btn btn-accent text-sm hidden sm:inline-flex">
               Panel de Control
             </Link>
           </nav>
         </div>
       </header>
 
-      {/* Contenido principal */}
-      <main className="flex-1 flex items-center justify-center p-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="flex justify-center mb-6">
-            <LogoColegio variante="grande" />
-          </div>
-          <h2 className="text-4xl font-bold mb-6" style={{ color: "var(--color-primary)" }}>
-            Sistema de Control de Comedores
-          </h2>
-          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-            Gestión integral del servicio de alimentación para estudiantes del
-            Colegio San Agustín de Concepción. Control de almuerzos, registro de
-            consumo y administración de menús.
-          </p>
+      {/* Hero */}
+      <section className="relative bg-primary overflow-hidden">
+        {/* Decorative pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-10 left-10 w-72 h-72 bg-accent rounded-full blur-3xl" />
+          <div className="absolute bottom-10 right-10 w-96 h-96 bg-purple rounded-full blur-3xl" />
+        </div>
 
-          {/* Tarjetas de funcionalidades */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-            <div className="p-6 bg-white rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
-              <div className="w-14 h-14 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
-                <svg
-                  className="w-7 h-7 text-[var(--color-primary)]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"
-                  />
-                </svg>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 md:py-28">
+          <div className="flex flex-col md:flex-row items-center gap-12">
+            {/* Texto hero */}
+            <div className="flex-1 text-center md:text-left animate-slide-up">
+              <div className="inline-flex items-center gap-2 bg-white/10 text-white/80 text-xs font-medium px-3 py-1.5 rounded-full mb-6">
+                <ShieldCheck size={14} />
+                <span>Plataforma institucional segura</span>
               </div>
-              <h3 className="text-lg font-semibold text-[var(--color-primary)] mb-2">
-                Registro de Estudiantes
-              </h3>
-              <p className="text-gray-500 text-sm">
-                Gestión de estudiantes con tarjetas QR únicas para identificación
-                rápida en el comedor.
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-6">
+                Sistema de Control
+                <br />
+                <span className="text-accent">de Comedores</span>
+              </h2>
+              <p className="text-white/70 text-lg max-w-lg mb-8">
+                Gestión integral del servicio de alimentación para estudiantes
+                del Colegio San Agustín de Concepción. Control de almuerzos,
+                registro de consumo y reportes en tiempo real.
               </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
+                <Link
+                  href="/dashboard"
+                  className="btn btn-accent text-base px-6 py-3 inline-flex items-center gap-2"
+                >
+                  Ir al Panel
+                  <ChevronRight size={18} />
+                </Link>
+                <Link
+                  href="/login"
+                  className="btn btn-outline text-white border-white/30 hover:bg-white/10 text-base px-6 py-3"
+                >
+                  Iniciar Sesión
+                </Link>
+              </div>
             </div>
 
-            <div className="p-6 bg-white rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
-              <div className="w-14 h-14 mx-auto mb-4 bg-amber-100 rounded-full flex items-center justify-center">
-                <svg
-                  className="w-7 h-7 text-[var(--color-accent)]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
-                  />
-                </svg>
+            {/* Logo grande */}
+            <div className="flex-shrink-0 animate-scale-in">
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+                <LogoColegio variante="grande" />
+                <div className="mt-4 text-center">
+                  <UtensilsCrossed className="mx-auto text-accent mb-1" size={24} />
+                  <p className="text-white/50 text-xs">Control de Comedores</p>
+                </div>
               </div>
-              <h3 className="text-lg font-semibold text-[var(--color-primary)] mb-2">
-                Control de Almuerzos
-              </h3>
-              <p className="text-gray-500 text-sm">
-                Registro diario de consumo de almuerzos mediante lectura de
-                códigos QR. Sin necesidad de celulares.
-              </p>
-            </div>
-
-            <div className="p-6 bg-white rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
-              <div className="w-14 h-14 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
-                <svg
-                  className="w-7 h-7 text-[var(--color-success)]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                  />
-                </svg>
-              </div>
-              <h3 className="text-lg font-semibold text-[var(--color-primary)] mb-2">
-                Reportes y Estadísticas
-              </h3>
-              <p className="text-gray-500 text-sm">
-                Informes detallados de consumo diario, semanal y mensual para la
-                administración del colegio.
-              </p>
             </div>
           </div>
         </div>
-      </main>
 
-      {/* Pie de página */}
-      <footer className="text-white text-center py-6 text-sm" style={{ backgroundColor: "var(--color-primary-dark)" }}>
-        <p className="font-medium">
+        {/* Wave divider */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg viewBox="0 0 1440 60" fill="none" className="w-full">
+            <path
+              d="M0 60V30C240 0 480 0 720 30C960 60 1200 60 1440 30V60H0Z"
+              fill="var(--color-gray-50)"
+            />
+          </svg>
+        </div>
+      </section>
+
+      {/* Funcionalidades */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-24">
+        <div className="text-center mb-12 animate-fade-in">
+          <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-3">
+            Todo lo que necesitas
+          </h3>
+          <p className="text-gray-500 max-w-md mx-auto">
+            Herramientas diseñadas para la gestión eficiente del comedor
+            escolar.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {funcionalidades.map((f, i) => {
+            const Icono = f.icono;
+            return (
+              <div
+                key={f.titulo}
+                className="card p-6 group"
+                style={{ animationDelay: `${i * 100}ms` }}
+              >
+                <div
+                  className={`w-12 h-12 rounded-xl ${f.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
+                >
+                  <Icono size={24} />
+                </div>
+                <h4 className="text-lg font-semibold text-gray-800 mb-2">
+                  {f.titulo}
+                </h4>
+                <p className="text-gray-500 text-sm leading-relaxed">
+                  {f.descripcion}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="bg-primary">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 text-center">
+          <h3 className="text-2xl font-bold text-white mb-3">
+            ¿Listo para comenzar?
+          </h3>
+          <p className="text-white/60 mb-6 max-w-md mx-auto">
+            Accede al panel de control para gestionar el comedor de manera
+            eficiente.
+          </p>
+          <Link
+            href="/dashboard"
+            className="btn btn-accent text-base px-8 py-3 inline-flex items-center gap-2"
+          >
+            Acceder al Sistema
+            <ChevronRight size={18} />
+          </Link>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-primary-dark text-white/60 text-center py-6 text-sm">
+        <p className="font-medium text-white/80">
           Colegio San Agustín Concepción
         </p>
-        <p className="text-blue-200 text-xs mt-1">
+        <p className="text-xs mt-1">
           Sistema de Control de Comedores — © {new Date().getFullYear()}
         </p>
       </footer>

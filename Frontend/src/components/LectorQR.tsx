@@ -3,6 +3,14 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { procesarEscaneo } from "@/lib/datosEjemplo";
 import type { ResultadoEscaneo } from "@/types";
+import {
+  ScanLine,
+  CheckCircle2,
+  AlertTriangle,
+  XCircle,
+  Keyboard,
+  Wifi,
+} from "lucide-react";
 
 export default function LectorQR() {
   const [resultado, setResultado] = useState<ResultadoEscaneo | null>(null);
@@ -10,7 +18,6 @@ export default function LectorQR() {
   const [modoManual, setModoManual] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Mantener foco en el input para la pistola USB
   const enfocarInput = useCallback(() => {
     if (inputRef.current && !modoManual) {
       inputRef.current.focus();
@@ -28,7 +35,6 @@ export default function LectorQR() {
     const res = procesarEscaneo(codigo.trim());
     setResultado(res);
 
-    // Limpiar después de 4 segundos
     setTimeout(() => {
       setResultado(null);
       setCodigoManual("");
@@ -49,10 +55,25 @@ export default function LectorQR() {
     procesarCodigo(codigoManual);
   };
 
-  const coloresFeedback = {
-    exito: { bg: "bg-green-50", borde: "border-green-400", texto: "text-green-800", icono: "✅" },
-    duplicado: { bg: "bg-amber-50", borde: "border-amber-400", texto: "text-amber-800", icono: "⚠️" },
-    "no-encontrado": { bg: "bg-red-50", borde: "border-red-400", texto: "text-red-800", icono: "❌" },
+  const feedback = {
+    exito: {
+      bg: "bg-success/5",
+      border: "border-success/40",
+      text: "text-success",
+      icon: CheckCircle2,
+    },
+    duplicado: {
+      bg: "bg-warning/5",
+      border: "border-warning/40",
+      text: "text-warning",
+      icon: AlertTriangle,
+    },
+    "no-encontrado": {
+      bg: "bg-danger/5",
+      border: "border-danger/40",
+      text: "text-danger",
+      icon: XCircle,
+    },
   };
 
   return (
@@ -73,46 +94,58 @@ export default function LectorQR() {
       {/* Zona de escaneo */}
       <div className="relative">
         {!resultado ? (
-          <div className="flex flex-col items-center justify-center h-56 bg-gray-50 rounded-xl border-2 border-dashed border-gray-300">
-            <div className="text-6xl mb-3 animate-pulse">📷</div>
-            <p className="text-lg font-medium text-gray-600">
+          <div className="flex flex-col items-center justify-center h-56 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200">
+            <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-4">
+              <ScanLine size={32} className="text-primary animate-pulse-soft" />
+            </div>
+            <p className="text-lg font-semibold text-gray-700">
               Esperando lectura QR...
             </p>
             <p className="text-sm text-gray-400 mt-1">
               Escanee la tarjeta del estudiante con la pistola lectora
             </p>
-          </div>
-        ) : (
-          <div
-            className={`flex flex-col items-center justify-center h-56 rounded-xl border-2 ${coloresFeedback[resultado.estado].bg} ${coloresFeedback[resultado.estado].borde} transition-all`}
-          >
-            <div className="text-5xl mb-3">
-              {coloresFeedback[resultado.estado].icono}
+            <div className="flex items-center gap-1.5 mt-3 text-xs text-success">
+              <Wifi size={12} />
+              <span>Lector conectado</span>
             </div>
-            <p className={`text-lg font-bold ${coloresFeedback[resultado.estado].texto}`}>
-              {resultado.mensaje}
-            </p>
-            {resultado.estudiante && (
-              <div className="mt-2 text-center">
-                <p className="text-sm text-gray-600">
-                  {resultado.estudiante.curso} — {resultado.estudiante.nivel}
-                </p>
-                <p className="text-xs text-gray-400">
-                  RUT: {resultado.estudiante.rut}
-                </p>
-              </div>
-            )}
           </div>
-        )}
+        ) : (() => {
+          const fb = feedback[resultado.estado];
+          const Icono = fb.icon;
+          return (
+            <div
+              className={`flex flex-col items-center justify-center h-56 rounded-xl border-2 ${fb.bg} ${fb.border} animate-scale-in`}
+            >
+              <Icono size={48} className={`${fb.text} mb-3`} />
+              <p className={`text-lg font-bold ${fb.text}`}>
+                {resultado.mensaje}
+              </p>
+              {resultado.estudiante && (
+                <div className="mt-2 text-center">
+                  <p className="text-sm text-gray-600">
+                    {resultado.estudiante.curso} —{" "}
+                    {resultado.estudiante.nivel}
+                  </p>
+                  <p className="text-xs text-gray-400">
+                    RUT: {resultado.estudiante.rut}
+                  </p>
+                </div>
+              )}
+            </div>
+          );
+        })()}
       </div>
 
-      {/* Modo manual para demo */}
-      <div className="border-t pt-4">
+      {/* Modo manual */}
+      <div className="border-t border-gray-100 pt-4">
         <button
           onClick={() => setModoManual(!modoManual)}
-          className="text-sm text-gray-500 hover:text-gray-700 underline"
+          className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-primary transition-colors"
         >
-          {modoManual ? "Volver al modo lector USB" : "Ingreso manual (para demo)"}
+          <Keyboard size={14} />
+          {modoManual
+            ? "Volver al modo lector USB"
+            : "Ingreso manual (para demo)"}
         </button>
 
         {modoManual && (
@@ -122,12 +155,12 @@ export default function LectorQR() {
               value={codigoManual}
               onChange={(e) => setCodigoManual(e.target.value)}
               placeholder="Ej: SA-1B-001"
-              className="flex-1 px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+              className="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
               autoComplete="off"
             />
             <button
               type="submit"
-              className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg text-sm hover:bg-[var(--color-primary-light)] transition-colors"
+              className="btn btn-primary px-5"
             >
               Registrar
             </button>

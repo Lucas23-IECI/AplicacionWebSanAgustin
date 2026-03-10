@@ -7,31 +7,34 @@ interface BarraProgresoProps {
 export default function BarraProgreso({ actual, total, etiqueta }: BarraProgresoProps) {
   const porcentaje = total > 0 ? Math.round((actual / total) * 100) : 0;
 
+  const colorBarra =
+    porcentaje >= 80
+      ? "from-success to-emerald-400"
+      : porcentaje >= 50
+        ? "from-accent to-yellow-400"
+        : "from-warning to-orange-400";
+
   return (
-    <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-      {etiqueta && (
-        <p className="text-sm text-gray-600 mb-2 font-medium">{etiqueta}</p>
-      )}
-      <div className="flex items-center gap-4">
-        <div className="flex-1 bg-gray-200 rounded-full h-4 overflow-hidden">
-          <div
-            className="h-full rounded-full transition-all duration-500"
-            style={{
-              width: `${porcentaje}%`,
-              backgroundColor:
-                porcentaje >= 80
-                  ? "var(--color-success)"
-                  : porcentaje >= 50
-                    ? "var(--color-accent)"
-                    : "var(--color-warning)",
-            }}
-          />
+    <div className="card p-5 animate-slide-up">
+      <div className="flex items-center justify-between mb-3">
+        {etiqueta && (
+          <p className="text-sm font-medium text-gray-600">{etiqueta}</p>
+        )}
+        <div className="flex items-center gap-3">
+          <span className="text-sm font-semibold text-gray-700">
+            {actual} / {total}
+          </span>
+          <span className="badge bg-gray-100 text-gray-600 text-xs">
+            {porcentaje}%
+          </span>
         </div>
-        <span className="text-sm font-semibold text-gray-700 min-w-[80px] text-right">
-          {actual} / {total}
-        </span>
       </div>
-      <p className="text-xs text-gray-400 mt-1 text-right">{porcentaje}% completado</p>
+      <div className="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
+        <div
+          className={`h-full rounded-full bg-gradient-to-r ${colorBarra} transition-all duration-700 ease-out`}
+          style={{ width: `${porcentaje}%` }}
+        />
+      </div>
     </div>
   );
 }
