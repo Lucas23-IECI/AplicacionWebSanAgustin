@@ -12,6 +12,7 @@ import {
   Menu,
   X,
   LogOut,
+  Bell,
 } from "lucide-react";
 import LogoColegio from "@/components/LogoColegio";
 
@@ -39,26 +40,26 @@ export default function DashboardLayout({
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Topbar */}
-      <header className="sticky top-0 z-50 bg-primary shadow-lg animate-slide-down">
+      <header className="sticky top-0 z-50 bg-gradient-to-r from-primary via-primary to-primary-light shadow-xl animate-slide-down border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16">
             {/* Logo + Nombre */}
-            <Link href="/dashboard" className="flex items-center gap-3 shrink-0">
-              <div className="bg-white rounded-lg p-1">
+            <Link href="/dashboard" className="flex items-center gap-3 shrink-0 group">
+              <div className="bg-white rounded-lg p-1 shadow-md group-hover:shadow-lg transition-shadow">
                 <LogoColegio variante="sidebar" />
               </div>
               <div className="hidden sm:block">
                 <p className="font-bold text-white text-sm leading-tight">
                   San Agustín
                 </p>
-                <p className="text-[11px] text-white/60">
+                <p className="text-[11px] text-white/50 font-medium">
                   Control de Comedores
                 </p>
               </div>
             </Link>
 
             {/* Nav central — desktop */}
-            <nav className="hidden md:flex items-center gap-1">
+            <nav className="hidden md:flex items-center gap-1 bg-white/5 rounded-xl p-1">
               {enlacesNav.map((enlace) => {
                 const activo = ruta === enlace.href;
                 const Icono = enlace.icono;
@@ -68,36 +69,43 @@ export default function DashboardLayout({
                     href={enlace.href}
                     className={`relative flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                       activo
-                        ? "text-white bg-white/15"
-                        : "text-white/70 hover:text-white hover:bg-white/10"
+                        ? "text-white bg-white/15 shadow-sm"
+                        : "text-white/60 hover:text-white hover:bg-white/10"
                     }`}
                   >
                     <Icono size={18} />
                     <span>{enlace.etiqueta}</span>
                     {activo && (
-                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-accent rounded-full" />
+                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-0.5 bg-accent rounded-full" />
                     )}
                   </Link>
                 );
               })}
             </nav>
 
-            {/* Derecha: fecha + avatar + logout */}
-            <div className="hidden md:flex items-center gap-4">
-              <div className="flex items-center gap-1.5 text-white/50 text-xs">
-                <Calendar size={14} />
+            {/* Derecha: fecha + notificación + avatar + logout */}
+            <div className="hidden md:flex items-center gap-3">
+              <div className="flex items-center gap-1.5 text-white/40 text-xs bg-white/5 px-3 py-1.5 rounded-lg">
+                <Calendar size={12} />
                 <span className="capitalize">{fechaHoy}</span>
               </div>
-              <div className="h-5 w-px bg-white/20" />
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center text-primary font-bold text-xs">
+              <div className="h-5 w-px bg-white/15" />
+              <button className="relative text-white/50 hover:text-white transition-colors p-1.5 hover:bg-white/10 rounded-lg">
+                <Bell size={18} />
+                <span className="absolute top-1 right-1 w-2 h-2 bg-accent rounded-full" />
+              </button>
+              <div className="flex items-center gap-2.5 bg-white/10 rounded-xl px-3 py-1.5">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-accent to-accent-light flex items-center justify-center text-primary font-bold text-xs shadow-md">
                   AD
                 </div>
-                <span className="text-white text-sm font-medium">Admin</span>
+                <div className="hidden lg:block">
+                  <p className="text-white text-xs font-semibold">Admin</p>
+                  <p className="text-white/40 text-[10px]">Administrador</p>
+                </div>
               </div>
               <Link
                 href="/"
-                className="text-white/50 hover:text-white transition-colors"
+                className="text-white/40 hover:text-white transition-colors p-1.5 hover:bg-white/10 rounded-lg"
                 title="Cerrar sesión"
               >
                 <LogOut size={18} />
@@ -127,29 +135,29 @@ export default function DashboardLayout({
                     key={enlace.href}
                     href={enlace.href}
                     onClick={() => setMenuAbierto(false)}
-                    className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
+                    className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-colors ${
                       activo
                         ? "bg-white/15 text-white font-semibold"
-                        : "text-white/70 hover:bg-white/10 hover:text-white"
+                        : "text-white/60 hover:bg-white/10 hover:text-white"
                     }`}
                   >
                     <Icono size={18} />
                     <span>{enlace.etiqueta}</span>
                     {activo && (
-                      <span className="ml-auto w-1.5 h-1.5 rounded-full bg-accent" />
+                      <span className="ml-auto w-2 h-2 rounded-full bg-accent" />
                     )}
                   </Link>
                 );
               })}
-              <div className="border-t border-white/10 pt-2 mt-2">
-                <div className="flex items-center gap-2 px-3 py-2 text-white/50 text-xs">
+              <div className="border-t border-white/10 pt-3 mt-3">
+                <div className="flex items-center gap-2 px-4 py-2 text-white/40 text-xs">
                   <Calendar size={14} />
                   <span className="capitalize">{fechaHoy}</span>
                 </div>
                 <Link
                   href="/"
                   onClick={() => setMenuAbierto(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 text-white/70 hover:text-white text-sm transition-colors"
+                  className="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white text-sm transition-colors"
                 >
                   <LogOut size={18} />
                   <span>Cerrar sesión</span>
@@ -161,7 +169,7 @@ export default function DashboardLayout({
       </header>
 
       {/* Contenido principal */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 animate-fade-in">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 animate-fade-in">
         {children}
       </main>
     </div>

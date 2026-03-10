@@ -9,6 +9,8 @@ import {
   TrendingUp,
   QrCode,
   ChevronRight,
+  ArrowRight,
+  Activity,
 } from "lucide-react";
 
 export default function DashboardPage() {
@@ -24,18 +26,33 @@ export default function DashboardPage() {
 
   return (
     <div>
-      {/* Saludo */}
-      <div className="mb-6 animate-fade-in">
-        <h2 className="text-2xl font-bold text-gray-800">
-          {saludo}, Administrador
-        </h2>
-        <p className="text-gray-500 text-sm mt-1">
-          Resumen de actividad del comedor — hoy
-        </p>
+      {/* Saludo con banner */}
+      <div className="mb-8 animate-fade-in">
+        <div className="relative bg-gradient-to-r from-primary via-primary-light to-primary rounded-2xl p-6 sm:p-8 overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full blur-[80px] translate-x-1/4 -translate-y-1/4" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-purple/15 rounded-full blur-[60px] -translate-x-1/4 translate-y-1/4" />
+          <div className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-black text-white">
+                {saludo}, Administrador 👋
+              </h2>
+              <p className="text-white/60 mt-1">
+                Resumen de actividad del comedor — hoy
+              </p>
+            </div>
+            <Link
+              href="/dashboard/registro"
+              className="btn btn-accent shadow-lg shadow-accent/25 inline-flex items-center gap-2 shrink-0"
+            >
+              <QrCode size={18} />
+              Registrar Almuerzos
+            </Link>
+          </div>
+        </div>
       </div>
 
       {/* Tarjetas de resumen */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <TarjetaResumen
           titulo="Almuerzos Hoy"
           valor={resumen.almorzaron}
@@ -67,7 +84,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Barra de progreso */}
-      <div className="mb-6">
+      <div className="mb-8">
         <BarraProgreso
           actual={resumen.almorzaron}
           total={resumen.totalEstudiantes}
@@ -79,36 +96,42 @@ export default function DashboardPage() {
         {/* Acceso rápido a registro */}
         <Link
           href="/dashboard/registro"
-          className="card p-6 group flex flex-col items-center justify-center text-center"
+          className="card p-8 group flex flex-col items-center justify-center text-center hover:-translate-y-1 transition-all duration-300"
         >
-          <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <QrCode size={32} className="text-primary" />
+          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-primary-light flex items-center justify-center mb-5 group-hover:scale-110 transition-transform shadow-lg shadow-primary/20">
+            <QrCode size={36} className="text-white" />
           </div>
-          <h3 className="text-lg font-semibold text-gray-700 group-hover:text-primary transition-colors mb-1">
+          <h3 className="text-xl font-bold text-gray-700 group-hover:text-primary transition-colors mb-2">
             Registro Rápido por QR
           </h3>
-          <p className="text-sm text-gray-400 mb-4">
-            Escanea el código QR de un estudiante
+          <p className="text-sm text-gray-400 mb-5 max-w-xs">
+            Escanea el código QR de un estudiante con la pistola lectora USB
           </p>
-          <span className="inline-flex items-center gap-1 text-sm font-medium text-primary">
+          <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary bg-primary/5 px-4 py-2 rounded-full group-hover:bg-primary/10 transition-colors">
             Ir al registro
-            <ChevronRight size={16} />
+            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </span>
         </Link>
 
         {/* Últimos registros */}
         <div className="card p-6">
-          <h3 className="text-lg font-semibold text-gray-700 mb-4">
-            Últimos Registros
-          </h3>
-          <div className="space-y-3">
+          <div className="flex items-center justify-between mb-5">
+            <h3 className="text-lg font-bold text-gray-700 flex items-center gap-2">
+              <Activity size={18} className="text-primary" />
+              Últimos Registros
+            </h3>
+            <Link href="/dashboard/registro" className="text-xs font-semibold text-primary hover:underline">
+              Ver todos →
+            </Link>
+          </div>
+          <div className="space-y-1">
             {ultimos.map((reg) => (
               <div
                 key={reg.id}
-                className="flex items-center justify-between py-2.5 border-b border-gray-100 last:border-0"
+                className="flex items-center justify-between py-3 px-3 rounded-xl hover:bg-gray-50 transition-colors"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary">
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center text-xs font-bold text-primary">
                     {reg.nombreEstudiante
                       .split(" ")
                       .map((n) => n[0])
@@ -116,7 +139,7 @@ export default function DashboardPage() {
                       .slice(0, 2)}
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-gray-800">
+                    <p className="text-sm font-semibold text-gray-800">
                       {reg.nombreEstudiante}
                     </p>
                     <p className="text-xs text-gray-400">
@@ -124,7 +147,7 @@ export default function DashboardPage() {
                     </p>
                   </div>
                 </div>
-                <span className="badge bg-gray-100 text-gray-500 text-xs">
+                <span className="badge bg-success/10 text-success text-xs font-semibold">
                   {reg.hora}
                 </span>
               </div>

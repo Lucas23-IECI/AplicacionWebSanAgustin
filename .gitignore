@@ -34,3 +34,6 @@ contexto/
 # agentes y skills
 .agents/
 skills-lock.json
+
+# datos backend (generado por seed)
+Backend/data/
