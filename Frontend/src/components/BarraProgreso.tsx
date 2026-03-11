@@ -15,23 +15,25 @@ export default function BarraProgreso({ actual, total, etiqueta }: BarraProgreso
         : "from-warning to-orange-400";
 
   return (
-    <div className="card p-5 animate-slide-up">
-      <div className="flex items-center justify-between mb-3">
+    <div className="card p-6 animate-slide-up">
+      <div className="flex items-center justify-between mb-4">
         {etiqueta && (
-          <p className="text-sm font-medium text-gray-600">{etiqueta}</p>
+          <p className="text-sm font-semibold text-gray-600">{etiqueta}</p>
         )}
         <div className="flex items-center gap-3">
-          <span className="text-sm font-semibold text-gray-700">
+          <span className="text-sm font-bold text-gray-700">
             {actual} / {total}
           </span>
-          <span className="badge bg-gray-100 text-gray-600 text-xs">
+          <span className={`badge text-xs font-bold px-3 py-1 ${
+            porcentaje >= 80 ? "bg-success/10 text-success" : porcentaje >= 50 ? "bg-accent/10 text-accent" : "bg-warning/10 text-warning"
+          }`}>
             {porcentaje}%
           </span>
         </div>
       </div>
-      <div className="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
+      <div className="w-full bg-gray-100 rounded-full h-4 overflow-hidden shadow-inner">
         <div
-          className={`h-full rounded-full bg-gradient-to-r ${colorBarra} transition-all duration-700 ease-out`}
+          className={`h-full rounded-full bg-gradient-to-r ${colorBarra} transition-all duration-700 ease-out shadow-sm`}
           style={{ width: `${porcentaje}%` }}
         />
       </div>

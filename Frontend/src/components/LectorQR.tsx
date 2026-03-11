@@ -94,18 +94,18 @@ export default function LectorQR() {
       {/* Zona de escaneo */}
       <div className="relative">
         {!resultado ? (
-          <div className="flex flex-col items-center justify-center h-56 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200">
-            <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-4">
-              <ScanLine size={32} className="text-primary animate-pulse-soft" />
+          <div className="flex flex-col items-center justify-center h-64 bg-gradient-to-br from-gray-50 to-white rounded-2xl border-2 border-dashed border-gray-200 hover:border-primary/30 transition-colors">
+            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center mb-5 shadow-sm">
+              <ScanLine size={36} className="text-primary animate-pulse-soft" />
             </div>
-            <p className="text-lg font-semibold text-gray-700">
+            <p className="text-xl font-black text-gray-700 tracking-tight">
               Esperando lectura QR...
             </p>
-            <p className="text-sm text-gray-400 mt-1">
-              Escanee la tarjeta del estudiante con la pistola lectora
+            <p className="text-sm text-gray-400 mt-2 max-w-xs text-center">
+              Escanee la tarjeta del estudiante con la pistola lectora USB
             </p>
-            <div className="flex items-center gap-1.5 mt-3 text-xs text-success">
-              <Wifi size={12} />
+            <div className="flex items-center gap-2 mt-4 bg-success/10 text-success text-xs font-bold px-4 py-2 rounded-full">
+              <Wifi size={13} />
               <span>Lector conectado</span>
             </div>
           </div>
@@ -114,10 +114,12 @@ export default function LectorQR() {
           const Icono = fb.icon;
           return (
             <div
-              className={`flex flex-col items-center justify-center h-56 rounded-xl border-2 ${fb.bg} ${fb.border} animate-scale-in`}
+              className={`flex flex-col items-center justify-center h-64 rounded-2xl border-2 ${fb.bg} ${fb.border} animate-scale-in`}
             >
-              <Icono size={48} className={`${fb.text} mb-3`} />
-              <p className={`text-lg font-bold ${fb.text}`}>
+              <div className={`w-16 h-16 rounded-2xl ${fb.bg} flex items-center justify-center mb-4`}>
+                <Icono size={40} className={`${fb.text}`} />
+              </div>
+              <p className={`text-xl font-black ${fb.text} tracking-tight`}>
                 {resultado.mensaje}
               </p>
               {resultado.estudiante && (
