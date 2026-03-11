@@ -14,38 +14,64 @@ export default function RegistroPage() {
   const ultimos = obtenerUltimosRegistros(8);
 
   return (
-    <div>
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 animate-fade-in">
-        <h2 className="text-2xl font-bold text-gray-800">
-          Registro de Almuerzos
-        </h2>
-        <div className="inline-flex items-center gap-2 text-sm text-gray-500 bg-white px-4 py-2 rounded-xl shadow-sm border border-gray-100">
-          <Calendar size={14} />
-          <span className="capitalize">
-            {new Date().toLocaleDateString("es-CL", {
-              weekday: "long",
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </span>
+    <div className="space-y-6">
+      {/* Header con banner */}
+      <div className="animate-fade-in">
+        <div className="relative bg-gradient-to-r from-primary via-primary-light to-primary rounded-2xl p-7 sm:p-9 overflow-hidden shadow-xl shadow-primary/10">
+          <div className="absolute top-0 right-0 w-72 h-72 bg-accent/10 rounded-full blur-[100px] translate-x-1/4 -translate-y-1/4" />
+          <div className="absolute bottom-0 left-0 w-56 h-56 bg-purple/12 rounded-full blur-[80px] -translate-x-1/4 translate-y-1/4" />
+          <div
+            className="absolute inset-0 opacity-[0.04]"
+            style={{
+              backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)`,
+              backgroundSize: "24px 24px",
+            }}
+          />
+          <div className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+            <div>
+              <div className="inline-flex items-center gap-2 glass text-white/70 text-xs font-semibold px-3.5 py-1.5 rounded-full mb-4">
+                <UtensilsCrossed size={12} className="text-accent" />
+                Registro Diario
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                Registro de Almuerzos
+              </h2>
+              <p className="text-white/45 mt-1.5 font-medium">
+                Escanea las tarjetas QR para registrar el almuerzo de cada estudiante
+              </p>
+            </div>
+            <div className="inline-flex items-center gap-2 glass text-white text-sm font-medium px-5 py-3 rounded-xl shrink-0">
+              <Calendar size={16} className="text-accent" />
+              <span className="capitalize">
+                {new Date().toLocaleDateString("es-CL", {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Zona de escaneo */}
-        <div className="lg:col-span-2 card p-6">
-          <h3 className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
-            <UtensilsCrossed size={18} className="text-primary" />
+        <div className="lg:col-span-2 card p-6 sm:p-8">
+          <h3 className="text-lg font-black text-gray-800 mb-5 flex items-center gap-2.5 tracking-tight">
+            <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center">
+              <UtensilsCrossed size={18} className="text-primary" />
+            </div>
             Escanear Tarjeta QR
           </h3>
           <LectorQR />
         </div>
 
         {/* Resumen rápido */}
-        <div className="space-y-4">
-          <div className="card p-5">
-            <h3 className="text-sm font-semibold text-gray-500 mb-4">
+        <div className="space-y-5">
+          <div className="card p-6">
+            <h3 className="text-sm font-bold text-gray-500 mb-5 uppercase tracking-wider flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-accent" />
               Resumen del Día
             </h3>
             <div className="space-y-3">
@@ -139,8 +165,11 @@ export default function RegistroPage() {
       </div>
 
       {/* Últimos registros */}
-      <div className="mt-6 card p-6">
-        <h3 className="text-lg font-semibold text-gray-700 mb-4">
+      <div className="card p-6 sm:p-8">
+        <h3 className="text-lg font-black text-gray-800 mb-5 flex items-center gap-2.5 tracking-tight">
+          <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center">
+            <Clock size={18} className="text-primary" />
+          </div>
           Últimos Registros de Hoy
         </h3>
         <div className="overflow-x-auto">

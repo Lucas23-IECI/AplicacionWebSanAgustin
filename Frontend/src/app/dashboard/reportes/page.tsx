@@ -68,21 +68,46 @@ export default function ReportesPage() {
   ];
 
   return (
-    <div>
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 animate-fade-in">
-        <h2 className="text-2xl font-bold text-gray-800">
-          Reportes y Estadísticas
-        </h2>
-        <button className="btn btn-primary inline-flex items-center gap-2 text-sm">
-          <Download size={16} />
-          Exportar a Excel
-        </button>
+    <div className="space-y-6">
+      {/* Header con banner */}
+      <div className="animate-fade-in">
+        <div className="relative bg-gradient-to-r from-primary via-primary-light to-primary rounded-2xl p-7 sm:p-9 overflow-hidden shadow-xl shadow-primary/10">
+          <div className="absolute top-0 right-0 w-72 h-72 bg-accent/10 rounded-full blur-[100px] translate-x-1/4 -translate-y-1/4" />
+          <div className="absolute bottom-0 left-0 w-56 h-56 bg-purple/12 rounded-full blur-[80px] -translate-x-1/4 translate-y-1/4" />
+          <div
+            className="absolute inset-0 opacity-[0.04]"
+            style={{
+              backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)`,
+              backgroundSize: "24px 24px",
+            }}
+          />
+          <div className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+            <div>
+              <div className="inline-flex items-center gap-2 glass text-white/70 text-xs font-semibold px-3.5 py-1.5 rounded-full mb-4">
+                <BarChart3 size={12} className="text-accent" />
+                Análisis y Datos
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                Reportes y Estadísticas
+              </h2>
+              <p className="text-white/45 mt-1.5 font-medium">
+                Informes detallados de consumo diario y semanal
+              </p>
+            </div>
+            <button className="btn btn-accent shadow-xl shadow-accent/30 inline-flex items-center gap-2 shrink-0 py-3.5 px-6 font-bold">
+              <Download size={18} />
+              Exportar a Excel
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Resumen del día */}
-      <div className="card p-6 mb-6">
-        <h3 className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
-          <Calendar size={18} className="text-primary" />
+      <div className="card p-6 sm:p-8">
+        <h3 className="text-lg font-black text-gray-800 mb-5 flex items-center gap-2.5 tracking-tight">
+          <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center">
+            <Calendar size={18} className="text-primary" />
+          </div>
           Resumen de Hoy
         </h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -91,16 +116,15 @@ export default function ReportesPage() {
             return (
               <div
                 key={item.label}
-                className="text-center p-3 rounded-xl bg-gray-50"
+                className="text-center p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:shadow-md hover:-translate-y-0.5 transition-all"
               >
-                <Icono
-                  size={20}
-                  className={`mx-auto mb-2 ${item.color} opacity-60`}
-                />
-                <p className={`text-2xl font-bold ${item.color}`}>
+                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center mx-auto mb-3 shadow-sm">
+                  <Icono size={20} className={`${item.color}`} />
+                </div>
+                <p className={`text-2xl font-black ${item.color}`}>
                   {item.value}
                 </p>
-                <p className="text-xs text-gray-400 mt-0.5">{item.label}</p>
+                <p className="text-xs text-gray-400 mt-1 font-medium">{item.label}</p>
               </div>
             );
           })}
@@ -109,9 +133,11 @@ export default function ReportesPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Resumen semanal */}
-        <div className="card p-6">
-          <h3 className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
-            <BarChart3 size={18} className="text-primary" />
+        <div className="card p-6 sm:p-8">
+          <h3 className="text-lg font-black text-gray-800 mb-5 flex items-center gap-2.5 tracking-tight">
+            <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center">
+              <BarChart3 size={18} className="text-primary" />
+            </div>
             Resumen Semanal
           </h3>
           <div className="overflow-x-auto">
@@ -202,9 +228,11 @@ export default function ReportesPage() {
         </div>
 
         {/* Consumo por curso */}
-        <div className="card p-6">
-          <h3 className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
-            <GraduationCap size={18} className="text-primary" />
+        <div className="card p-6 sm:p-8">
+          <h3 className="text-lg font-black text-gray-800 mb-5 flex items-center gap-2.5 tracking-tight">
+            <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center">
+              <GraduationCap size={18} className="text-primary" />
+            </div>
             Consumo por Curso
           </h3>
           <div className="overflow-x-auto">
