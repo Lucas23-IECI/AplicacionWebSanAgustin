@@ -1,19 +1,28 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Users,
   QrCode,
   BarChart3,
-  ShieldCheck,
-  ChevronRight,
   ArrowRight,
-  Utensils,
-  ClipboardCheck,
-  PieChart,
-  Zap,
   CheckCircle2,
-  Sparkles,
+  ScanLine,
+  Monitor,
+  ChevronRight,
+  Database,
+  Printer,
+  UtensilsCrossed,
+  UserCheck,
 } from "lucide-react";
 import LogoColegio from "@/components/LogoColegio";
+
+const heroImages = [
+  "/Imagenes/Colegio/FotoColegio1.jpeg",
+  "/Imagenes/Colegio/FotoColegio3.jpeg",
+];
 
 const funcionalidades = [
   {
@@ -22,75 +31,105 @@ const funcionalidades = [
     descripcion:
       "Gestión completa de estudiantes con tarjetas QR únicas para identificación rápida en el comedor.",
     color: "from-primary to-primary-light",
-    accentColor: "text-primary",
-    bgLight: "bg-primary/8",
   },
   {
     icono: QrCode,
     titulo: "Control de Almuerzos",
     descripcion:
-      "Registro diario de consumo mediante lectura de códigos QR con pistola USB. Sin celulares.",
+      "Registro diario de consumo mediante lectura de códigos QR con pistola USB. Rápido y sin errores.",
     color: "from-accent to-accent-light",
-    accentColor: "text-accent",
-    bgLight: "bg-accent/8",
   },
   {
     icono: BarChart3,
     titulo: "Reportes y Estadísticas",
     descripcion:
-      "Informes detallados de consumo diario, semanal y mensual para la administración.",
+      "Informes detallados de consumo diario, semanal y mensual para la administración del colegio.",
     color: "from-success to-emerald-400",
-    accentColor: "text-success",
-    bgLight: "bg-success/8",
   },
 ];
 
-const pasos = [
+const flujo = [
   {
-    numero: "01",
-    icono: ClipboardCheck,
-    titulo: "Registrar estudiantes",
-    desc: "Cargue la lista de estudiantes y genere tarjetas QR individuales para cada uno.",
+    icono: Database,
+    titulo: "Base de datos",
+    desc: "Los estudiantes están cargados en el sistema con sus datos",
     color: "from-primary to-primary-light",
   },
   {
-    numero: "02",
     icono: QrCode,
-    titulo: "Escanear en comedor",
-    desc: "Use la pistola lectora USB para registrar cada almuerzo al instante.",
+    titulo: "Generación de QR",
+    desc: "Cada estudiante tiene un código QR único vinculado a su perfil",
     color: "from-accent to-accent-light",
   },
   {
-    numero: "03",
-    icono: PieChart,
-    titulo: "Consultar reportes",
-    desc: "Visualice estadísticas diarias, semanales y por curso en tiempo real.",
+    icono: Printer,
+    titulo: "Impresión de tarjetas",
+    desc: "Las tarjetas se imprimen y entregan a cada alumno",
+    color: "from-success to-emerald-400",
+  },
+  {
+    icono: UtensilsCrossed,
+    titulo: "Menú del día",
+    desc: "La administración configura el menú del día en el sistema",
+    color: "from-purple to-purple-light",
+  },
+  {
+    icono: UserCheck,
+    titulo: "Llegada al comedor",
+    desc: "El alumno presenta su tarjeta al personal del comedor",
+    color: "from-primary to-primary-light",
+  },
+  {
+    icono: ScanLine,
+    titulo: "Escaneo QR",
+    desc: "El personal escanea la tarjeta con el lector USB",
+    color: "from-accent to-accent-light",
+  },
+  {
+    icono: Monitor,
+    titulo: "Confirmación",
+    desc: "El sistema muestra los datos del alumno y confirma el registro",
+    color: "from-success to-emerald-400",
+  },
+  {
+    icono: BarChart3,
+    titulo: "Reportes",
+    desc: "La administración consulta estadísticas en tiempo real",
     color: "from-purple to-purple-light",
   },
 ];
 
 const beneficios = [
-  "Sin conexión a internet requerida",
-  "Registro en menos de 1 segundo",
-  "Exportación de reportes a Excel",
-  "Soporte para múltiples cursos",
+  "Funciona con el lector QR que ya tiene el colegio",
+  "Registro en menos de 1 segundo por estudiante",
+  "Reportes de consumo diarios, semanales y mensuales",
+  "No requiere celulares — cumple normativa escolar",
 ];
 
 export default function PaginaPrincipal() {
+  const [currentImage, setCurrentImage] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col bg-white">
       {/* ═══════════ CABECERA ═══════════ */}
-      <header className="sticky top-0 z-50 bg-primary/95 backdrop-blur-xl text-white border-b border-white/10">
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-200/60 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 flex items-center justify-between h-[4.5rem]">
           <div className="flex items-center gap-3">
-            <div className="bg-white rounded-xl p-1.5 shadow-lg shadow-primary/30">
+            <div className="rounded-xl p-1">
               <LogoColegio variante="chico" />
             </div>
             <div className="hidden sm:block">
-              <h1 className="text-sm font-bold leading-tight tracking-tight">
+              <h1 className="text-sm font-bold leading-tight tracking-tight text-gray-900">
                 Colegio San Agustín
               </h1>
-              <p className="text-[11px] text-white/40 font-medium">
+              <p className="text-[11px] text-gray-400 font-medium">
                 Concepción
               </p>
             </div>
@@ -98,158 +137,115 @@ export default function PaginaPrincipal() {
           <nav className="flex items-center gap-4">
             <Link
               href="/login"
-              className="text-sm font-medium text-white/70 hover:text-white transition-colors hidden sm:block"
+              className="text-sm font-medium text-gray-500 hover:text-primary transition-colors hidden sm:block"
             >
               Iniciar Sesión
             </Link>
             <Link
               href="/dashboard"
-              className="btn btn-accent text-sm shadow-lg shadow-accent/30"
+              className="btn btn-primary text-sm shadow-md shadow-primary/20"
             >
-              <Zap size={16} />
               Panel de Control
             </Link>
           </nav>
         </div>
       </header>
 
-      {/* ═══════════ HERO ═══════════ */}
-      <section className="relative bg-gradient-to-br from-primary via-primary-light to-primary overflow-hidden">
-        {/* Decoraciones de fondo */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-[-120px] left-[-80px] w-[600px] h-[600px] bg-accent/15 rounded-full blur-[140px] animate-float" />
-          <div className="absolute bottom-[-150px] right-[-100px] w-[700px] h-[700px] bg-purple/20 rounded-full blur-[160px]" />
-          <div className="absolute top-[40%] left-[30%] w-[500px] h-[500px] bg-white/[0.03] rounded-full blur-[100px]" />
-          {/* Grid pattern */}
-          <div
-            className="absolute inset-0 opacity-[0.04]"
-            style={{
-              backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.4) 1px, transparent 0)`,
-              backgroundSize: "32px 32px",
-            }}
+      {/* ═══════════ HERO CON CARRUSEL DE FOTOS ═══════════ */}
+      <section className="relative min-h-[80vh] sm:min-h-[85vh] flex flex-col items-center justify-center overflow-hidden">
+        {/* Carrusel de imágenes de fondo */}
+        {heroImages.map((src, i) => (
+          <Image
+            key={src}
+            src={src}
+            alt="Colegio San Agustín de Concepción"
+            fill
+            className={`object-cover transition-opacity duration-1000 ${
+              i === currentImage ? "opacity-100" : "opacity-0"
+            }`}
+            priority={i === 0}
+            sizes="100vw"
           />
-        </div>
+        ))}
 
-        <div className="relative max-w-7xl mx-auto px-6 sm:px-10 py-20 sm:py-28 lg:py-36">
-          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-            {/* Texto hero */}
-            <div className="flex-1 text-center lg:text-left animate-slide-up">
-              <div className="inline-flex items-center gap-2 glass text-white text-xs font-semibold px-5 py-2.5 rounded-full mb-8 shadow-lg">
-                <ShieldCheck size={14} className="text-accent" />
-                <span>Plataforma institucional segura</span>
-              </div>
+        {/* Capa oscura fija — garantiza contraste incluso durante transición */}
+        <div className="absolute inset-0 bg-black/50" />
+        {/* Overlay gradiente adicional */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40" />
 
-              <h2 className="text-4xl sm:text-5xl lg:text-[3.5rem] xl:text-6xl font-black text-white leading-[1.08] mb-6 tracking-tight">
-                Sistema de Control{" "}
-                <span className="block mt-1 gradient-text">de Comedores</span>
-              </h2>
-
-              <p className="text-white/60 text-base sm:text-lg lg:text-xl max-w-xl mb-10 leading-relaxed mx-auto lg:mx-0">
-                Gestión integral del servicio de alimentación para estudiantes
-                del Colegio San Agustín de Concepción. Control, registro y
-                reportes en tiempo real.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Link
-                  href="/dashboard"
-                  className="btn btn-accent text-base px-8 py-4 shadow-xl shadow-accent/30 hover:shadow-accent/50 text-base font-bold glow-accent"
-                >
-                  Ir al Panel
-                  <ArrowRight size={18} />
-                </Link>
-                <Link
-                  href="/login"
-                  className="btn glass text-white hover:bg-white/20 text-base px-8 py-4 font-semibold"
-                >
-                  Iniciar Sesión
-                </Link>
-              </div>
-
-              {/* Stats inline */}
-              <div className="flex flex-wrap justify-center lg:justify-start gap-10 mt-14 pt-8 border-t border-white/10">
-                {[
-                  { num: "500+", label: "Estudiantes" },
-                  { num: "98%", label: "Precisión" },
-                  { num: "< 1s", label: "Por escaneo" },
-                ].map((stat) => (
-                  <div key={stat.label} className="text-center lg:text-left">
-                    <p className="text-3xl font-black text-white tracking-tight">
-                      {stat.num}
-                    </p>
-                    <p className="text-white/35 text-xs font-semibold uppercase tracking-widest mt-1">
-                      {stat.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
+        <div className="relative z-10 w-full max-w-5xl mx-auto px-6 sm:px-10 py-20 sm:py-28">
+          <div className="flex flex-col items-center justify-center text-center animate-slide-up">
+            {/* Logo */}
+            <div className="mb-8 drop-shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
+              <LogoColegio variante="grande" />
             </div>
 
-            {/* Logo + decoración */}
-            <div className="flex-shrink-0 animate-scale-in hidden md:block">
-              <div className="relative">
-                <div className="absolute -inset-6 bg-gradient-to-br from-accent/25 via-purple/15 to-accent/10 rounded-[2rem] blur-2xl animate-pulse-soft" />
-                <div className="relative glass rounded-[2rem] p-10 sm:p-12 shadow-2xl">
-                  <LogoColegio variante="grande" />
-                  <div className="mt-8 text-center">
-                    <div className="inline-flex items-center gap-2.5 bg-accent/15 backdrop-blur-sm px-5 py-2.5 rounded-full border border-accent/20">
-                      <Utensils className="text-accent" size={16} />
-                      <p className="text-white/80 text-sm font-bold tracking-tight">
-                        Control de Comedores
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-white leading-[1.1] mb-6 tracking-tight drop-shadow-lg">
+              Sistema de Control{" "}
+              <span className="text-accent">de Comedores</span>
+            </h2>
+
+            <p className="text-white/80 text-base sm:text-lg lg:text-xl max-w-2xl mb-10 leading-relaxed">
+              Digitalización del servicio de alimentación estudiantil del
+              Colegio San Agustín de Concepción. Control de asistencia,
+              registro por código QR y reportes para la administración.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+              <Link
+                href="/dashboard"
+                className="btn bg-accent hover:bg-accent-light text-white text-base px-10 py-4 shadow-xl shadow-accent/40 font-bold text-lg"
+              >
+                Ver el Sistema
+                <ArrowRight size={20} />
+              </Link>
+              <Link
+                href="/login"
+                className="btn bg-white/20 text-white border-2 border-white hover:bg-white/30 text-base px-10 py-4 font-bold backdrop-blur-sm text-lg"
+              >
+                Iniciar Sesión
+              </Link>
             </div>
           </div>
         </div>
 
-        {/* Wave divider */}
-        <div className="relative h-20 sm:h-28">
-          <svg
-            viewBox="0 0 1440 100"
-            fill="none"
-            preserveAspectRatio="none"
-            className="absolute bottom-0 left-0 w-full h-full"
-          >
-            <path
-              d="M0 100V50C240 10 480 70 720 45C960 20 1200 60 1440 35V100H0Z"
-              fill="#f8fafc"
+        {/* Indicadores del carrusel */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+          {heroImages.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentImage(i)}
+              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                i === currentImage
+                  ? "bg-white w-8"
+                  : "bg-white/40 hover:bg-white/60"
+              }`}
+              aria-label={`Imagen ${i + 1}`}
             />
-          </svg>
+          ))}
         </div>
       </section>
 
       {/* ═══════════ FUNCIONALIDADES ═══════════ */}
-      <section className="bg-gray-50 relative">
+      <section className="bg-white">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 py-20 sm:py-28">
-          <div className="text-center mb-14 animate-fade-in">
-            <div className="inline-flex items-center gap-2 bg-accent/10 text-accent text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-5">
-              <Sparkles size={14} />
-              Funcionalidades
-            </div>
+          <div className="flex flex-col items-center text-center mb-14">
             <h3 className="text-3xl sm:text-4xl font-black text-gray-900 mb-4 tracking-tight">
-              Todo lo que necesitas
+              ¿Qué ofrece este sistema?
             </h3>
-            <p className="text-gray-500 max-w-md mx-auto text-base sm:text-lg leading-relaxed">
-              Herramientas diseñadas para la gestión eficiente del comedor
-              escolar.
+            <p className="text-gray-500 max-w-lg text-base sm:text-lg leading-relaxed">
+              Una solución pensada para simplificar el control del comedor
+              escolar, adaptada a la realidad del colegio.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            {funcionalidades.map((f, i) => {
+            {funcionalidades.map((f) => {
               const Icono = f.icono;
               return (
-                <div
-                  key={f.titulo}
-                  className="feature-card group"
-                  style={{ animationDelay: `${i * 120}ms` }}
-                >
-                  {/* Icono con gradiente */}
+                <div key={f.titulo} className="feature-card group">
                   <div
-                    className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${f.color} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-400`}
+                    className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${f.color} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-300`}
                   >
                     <Icono size={26} className="text-white" />
                   </div>
@@ -259,10 +255,6 @@ export default function PaginaPrincipal() {
                   <p className="text-gray-500 leading-relaxed text-[0.95rem]">
                     {f.descripcion}
                   </p>
-                  {/* Decoración esquina */}
-                  <div
-                    className={`absolute top-0 right-0 w-24 h-24 ${f.bgLight} rounded-bl-[3rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
-                  />
                 </div>
               );
             })}
@@ -270,51 +262,73 @@ export default function PaginaPrincipal() {
         </div>
       </section>
 
-      {/* ═══════════ CÓMO FUNCIONA ═══════════ */}
-      <section className="bg-white relative overflow-hidden">
-        {/* Decoración de fondo sutil */}
-        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/[0.02] rounded-full blur-[100px]" />
-        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-accent/[0.03] rounded-full blur-[80px]" />
-
-        <div className="relative max-w-7xl mx-auto px-6 sm:px-10 py-20 sm:py-28">
-          <div className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 bg-primary/8 text-primary text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-5">
-              <Zap size={14} />
-              Proceso
+      {/* ═══════════ BANNER ALUMNOS 1 ═══════════ */}
+      <section className="relative h-72 sm:h-80 lg:h-96 overflow-hidden">
+        <Image
+          src="/Imagenes/Alumnos/FotoAlumnos1.jpeg"
+          alt="Estudiantes del Colegio San Agustín"
+          fill
+          className="object-cover"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/60 to-transparent" />
+        <div className="relative z-10 h-full flex items-center">
+          <div className="max-w-7xl mx-auto px-6 sm:px-10 w-full">
+            <div className="max-w-lg">
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-3 tracking-tight">
+                Pensado para nuestros estudiantes
+              </h3>
+              <p className="text-white/80 text-base sm:text-lg leading-relaxed">
+                Un sistema que cuida a cada alumno, asegurando que todos
+                reciban su alimentación de forma ordenada y registrada.
+              </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════ FLUJO OPERATIVO VISUAL ═══════════ */}
+      <section className="bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 py-20 sm:py-28">
+          <div className="flex flex-col items-center text-center mb-14">
             <h3 className="text-3xl sm:text-4xl font-black text-gray-900 mb-4 tracking-tight">
               ¿Cómo funciona?
             </h3>
-            <p className="text-gray-500 max-w-md mx-auto text-base sm:text-lg leading-relaxed">
-              Tres pasos simples para controlar el comedor escolar
+            <p className="text-gray-500 max-w-2xl text-base sm:text-lg leading-relaxed">
+              Desde la carga de estudiantes hasta los reportes finales, así es el
+              proceso completo del sistema de control de comedores.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 relative">
-            {/* Línea conectora */}
-            <div className="hidden md:block absolute top-[3.5rem] left-[16%] right-[16%] h-[2px]">
-              <div className="w-full h-full bg-gradient-to-r from-primary/20 via-accent/30 to-purple/20 rounded-full" />
-            </div>
+          {/* Flujo completo */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-x-8 lg:gap-y-12 relative">
 
-            {pasos.map((paso) => {
+            {flujo.map((paso, i) => {
               const Icono = paso.icono;
               return (
                 <div
-                  key={paso.numero}
-                  className="relative text-center group"
+                  key={paso.titulo}
+                  className="relative flex flex-col items-center text-center group"
                 >
-                  <div
-                    className={`inline-flex items-center justify-center w-[4.5rem] h-[4.5rem] rounded-2xl bg-gradient-to-br ${paso.color} text-white mb-6 shadow-xl group-hover:scale-110 group-hover:shadow-2xl transition-all duration-300 relative z-10`}
-                  >
-                    <Icono size={30} />
+                  <div className="relative mb-5">
+                    <div className="absolute -top-2 -left-2 w-7 h-7 rounded-full bg-white border-2 border-gray-200 flex items-center justify-center text-xs font-bold text-gray-500 z-20">
+                      {i + 1}
+                    </div>
+                    <div
+                      className={`w-[4.5rem] h-[4.5rem] rounded-2xl bg-gradient-to-br ${paso.color} flex items-center justify-center text-white shadow-xl group-hover:scale-110 transition-all duration-300 relative z-10`}
+                    >
+                      <Icono size={28} />
+                    </div>
                   </div>
-                  <div className="text-xs font-black text-gray-300 uppercase tracking-widest mb-2">
-                    Paso {paso.numero}
-                  </div>
-                  <h4 className="text-lg font-bold text-gray-900 mb-3 tracking-tight">
+                  {i < flujo.length - 1 && i !== 3 && (
+                    <div className="hidden lg:block absolute top-[2.8rem] right-[-1rem] z-20">
+                      <ChevronRight size={20} className="text-gray-300" />
+                    </div>
+                  )}
+                  <h4 className="text-base font-bold text-gray-900 mb-2 tracking-tight">
                     {paso.titulo}
                   </h4>
-                  <p className="text-gray-500 leading-relaxed max-w-xs mx-auto text-[0.95rem]">
+                  <p className="text-gray-500 text-sm leading-relaxed max-w-[200px]">
                     {paso.desc}
                   </p>
                 </div>
@@ -324,33 +338,71 @@ export default function PaginaPrincipal() {
         </div>
       </section>
 
-      {/* ═══════════ BENEFICIOS ═══════════ */}
-      <section className="bg-gray-50">
+      {/* ═══════════ BANNER ALUMNOS 2 + FOTO COLEGIO ═══════════ */}
+      <section className="bg-white">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 py-20 sm:py-28">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            {/* Foto */}
+            <div className="relative h-72 sm:h-80 lg:h-96 rounded-3xl overflow-hidden shadow-lg">
+              <Image
+                src="/Imagenes/Alumnos/FotoAlumnos2.jpeg"
+                alt="Estudiantes del Colegio San Agustín"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            </div>
+            {/* Texto */}
+            <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
+              <h3 className="text-3xl sm:text-4xl font-black text-gray-900 mb-5 tracking-tight">
+                Digitalización del comedor escolar
+              </h3>
+              <p className="text-gray-500 text-base sm:text-lg leading-relaxed mb-6">
+                Actualmente el control de almuerzos se realiza de forma manual.
+                Este sistema permite automatizar el registro con el lector QR
+                que ya posee el colegio, eliminando errores y ahorrando tiempo
+                al personal.
+              </p>
+              <div className="space-y-3">
+                {[
+                  "Reemplaza el registro manual en papel",
+                  "Información disponible al instante",
+                  "Fácil de usar para el personal del comedor",
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-3">
+                    <CheckCircle2 size={18} className="text-success flex-shrink-0" />
+                    <span className="text-gray-600 text-sm font-medium">
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════ ACCESO AL SISTEMA ═══════════ */}
+      <section className="bg-gray-50 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 py-20 sm:py-28">
           <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-2">
-              {/* Lado izquierdo - gradiente */}
+              {/* Lado izquierdo - beneficios */}
               <div className="bg-gradient-to-br from-primary via-primary-light to-primary p-10 sm:p-14 flex flex-col justify-center relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-48 h-48 bg-accent/10 rounded-full blur-[60px]" />
                 <div className="relative">
                   <h3 className="text-3xl font-black text-white mb-4 tracking-tight">
-                    ¿Por qué elegirnos?
+                    Características del sistema
                   </h3>
                   <p className="text-white/60 text-base leading-relaxed mb-8">
-                    Un sistema diseñado específicamente para las necesidades del
-                    comedor escolar chileno.
+                    Diseñado para las necesidades del comedor escolar del
+                    Colegio San Agustín.
                   </p>
                   <div className="space-y-4">
                     {beneficios.map((b) => (
-                      <div
-                        key={b}
-                        className="flex items-center gap-3"
-                      >
+                      <div key={b} className="flex items-center gap-3">
                         <div className="flex-shrink-0 w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center">
-                          <CheckCircle2
-                            size={14}
-                            className="text-accent"
-                          />
+                          <CheckCircle2 size={14} className="text-accent" />
                         </div>
                         <span className="text-white/80 text-sm font-medium">
                           {b}
@@ -360,79 +412,69 @@ export default function PaginaPrincipal() {
                   </div>
                 </div>
               </div>
-              {/* Lado derecho - logo */}
-              <div className="p-10 sm:p-14 flex flex-col items-center justify-center bg-gray-50/50">
-                <LogoColegio variante="grande" />
-                <p className="text-gray-400 text-sm mt-6 font-medium text-center">
-                  Colegio San Agustín Concepción
-                </p>
-                <Link
-                  href="/dashboard"
-                  className="btn btn-primary mt-8 px-8 py-3.5 shadow-lg shadow-primary/20"
-                >
-                  Explorar el Sistema
-                  <ChevronRight size={18} />
-                </Link>
+              {/* Lado derecho - foto del colegio + acceso */}
+              <div className="relative overflow-hidden">
+                <Image
+                  src="/Imagenes/Colegio/FotoColegio3.jpeg"
+                  alt="Colegio San Agustín de Concepción"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+                <div className="absolute inset-0 bg-white/85 backdrop-blur-[2px]" />
+                <div className="relative p-10 sm:p-14 flex flex-col items-center justify-center h-full min-h-[300px]">
+                  <div className="flex flex-col items-center text-center">
+                    <div className="bg-white rounded-2xl p-4 shadow-md border border-gray-100 mb-6">
+                      <LogoColegio variante="grande" />
+                    </div>
+                    <h4 className="text-lg font-bold text-gray-900 tracking-tight">
+                      Accede al sistema
+                    </h4>
+                    <p className="text-gray-500 text-sm mt-2 max-w-xs leading-relaxed">
+                      Ingresa al panel de control para ver el sistema en
+                      funcionamiento.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-3 mt-8">
+                      <Link
+                        href="/dashboard"
+                        className="btn btn-primary px-8 py-3.5 shadow-lg shadow-primary/20"
+                      >
+                        Ir al Panel de Control
+                        <ArrowRight size={16} />
+                      </Link>
+                      <Link
+                        href="/login"
+                        className="btn btn-outline px-8 py-3.5"
+                      >
+                        Iniciar Sesión
+                      </Link>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* ═══════════ CTA FINAL ═══════════ */}
-      <section className="relative bg-gradient-to-br from-primary via-primary-light to-primary overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-[-60px] right-[-60px] w-[500px] h-[500px] bg-accent/12 rounded-full blur-[120px]" />
-          <div className="absolute bottom-[-60px] left-[-60px] w-[400px] h-[400px] bg-purple/15 rounded-full blur-[100px]" />
-          <div
-            className="absolute inset-0 opacity-[0.03]"
-            style={{
-              backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.4) 1px, transparent 0)`,
-              backgroundSize: "24px 24px",
-            }}
-          />
-        </div>
-        <div className="relative max-w-3xl mx-auto px-6 sm:px-10 py-20 sm:py-24 text-center">
-          <div className="inline-flex items-center gap-2 glass text-white/80 text-xs font-semibold px-4 py-2 rounded-full mb-8">
-            <Sparkles size={14} className="text-accent" />
-            Comienza ahora
-          </div>
-          <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-5 tracking-tight leading-tight">
-            ¿Listo para modernizar{" "}
-            <span className="gradient-text">tu comedor?</span>
-          </h3>
-          <p className="text-white/50 mb-10 max-w-lg mx-auto text-base sm:text-lg leading-relaxed">
-            Accede al panel de control para gestionar el comedor de manera
-            eficiente y profesional.
-          </p>
-          <Link
-            href="/dashboard"
-            className="btn btn-accent text-lg px-10 py-4 shadow-xl shadow-accent/30 glow-accent font-bold"
-          >
-            Acceder al Sistema
-            <ArrowRight size={20} />
-          </Link>
         </div>
       </section>
 
       {/* ═══════════ FOOTER ═══════════ */}
-      <footer className="bg-primary-dark border-t border-white/5">
+      <footer className="bg-white border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 py-10">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="bg-white rounded-xl p-1.5 shadow-md">
+              <div className="rounded-xl p-1">
                 <LogoColegio variante="navbar" />
               </div>
               <div>
-                <p className="font-bold text-white text-sm tracking-tight">
-                  Colegio San Agustín Concepción
+                <p className="font-bold text-gray-900 text-sm tracking-tight">
+                  Colegio San Agustín de Concepción
                 </p>
-                <p className="text-white/30 text-xs">
+                <p className="text-gray-400 text-xs">
                   Sistema de Control de Comedores
                 </p>
               </div>
             </div>
-            <p className="text-white/25 text-sm">
+            <p className="text-gray-300 text-sm">
               © {new Date().getFullYear()} — Todos los derechos reservados
             </p>
           </div>
