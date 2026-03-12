@@ -1,17 +1,15 @@
 import TarjetaResumen from "@/components/TarjetaResumen";
 import BarraProgreso from "@/components/BarraProgreso";
 import { obtenerResumenDia, obtenerUltimosRegistros } from "@/lib/datosEjemplo";
-import Link from "next/link";
 import {
   UtensilsCrossed,
   Users,
   Clock,
   TrendingUp,
-  QrCode,
-  ArrowRight,
   Activity,
   Sparkles,
 } from "lucide-react";
+import { MODO_PRESENTACION } from "@/lib/modoPresentacion";
 
 export default function DashboardPage() {
   const resumen = obtenerResumenDia();
@@ -51,13 +49,14 @@ export default function DashboardPage() {
                 Resumen de actividad del comedor — hoy
               </p>
             </div>
-            <Link
-              href="/dashboard/registro"
-              className="btn btn-accent shadow-xl shadow-accent/30 inline-flex items-center gap-2 shrink-0 py-3.5 px-6 font-bold"
-            >
-              <QrCode size={18} />
-              Registrar Almuerzos
-            </Link>
+            {!MODO_PRESENTACION && (
+              <button
+                type="button"
+                className="btn btn-accent shadow-xl shadow-accent/30 inline-flex items-center gap-2 shrink-0 py-3.5 px-6 font-bold"
+              >
+                Registrar Almuerzos
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -103,12 +102,11 @@ export default function DashboardPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
         {/* Acceso rápido a registro */}
-        <Link
-          href="/dashboard/registro"
+        {!MODO_PRESENTACION && <div
           className="card p-8 sm:p-12 group flex flex-col items-center justify-center text-center"
         >
           <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-primary to-primary-light flex items-center justify-center mb-7 group-hover:scale-110 transition-all duration-300 shadow-xl shadow-primary/20 group-hover:shadow-2xl group-hover:shadow-primary/30">
-            <QrCode size={42} className="text-white" />
+            <UtensilsCrossed size={42} className="text-white" />
           </div>
           <h3 className="text-2xl font-black text-gray-800 group-hover:text-primary transition-colors mb-3 tracking-tight">
             Registro Rápido por QR
@@ -116,11 +114,7 @@ export default function DashboardPage() {
           <p className="text-sm text-gray-400 mb-7 max-w-xs leading-relaxed">
             Escanea el código QR de un estudiante con la pistola lectora USB
           </p>
-          <span className="inline-flex items-center gap-2 text-sm font-bold text-primary bg-primary/[0.06] px-6 py-3 rounded-full group-hover:bg-primary/[0.12] transition-colors">
-            Ir al registro
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-          </span>
-        </Link>
+        </div>}
 
         {/* Últimos registros */}
         <div className="card p-7 sm:p-8">
@@ -131,9 +125,9 @@ export default function DashboardPage() {
               </div>
               Últimos Registros
             </h3>
-            <Link href="/dashboard/registro" className="text-xs font-bold text-primary hover:text-primary-light transition-colors bg-primary/[0.06] px-4 py-2 rounded-full hover:bg-primary/[0.1]">
+            <span className="text-xs font-bold text-primary bg-primary/[0.06] px-4 py-2 rounded-full">
               Ver todos →
-            </Link>
+            </span>
           </div>
           <div className="space-y-1.5">
             {ultimos.map((reg) => (

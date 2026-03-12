@@ -15,6 +15,7 @@ import {
   Bell,
 } from "lucide-react";
 import LogoColegio from "@/components/LogoColegio";
+import { MODO_PRESENTACION } from "@/lib/modoPresentacion";
 
 const enlacesNav = [
   { href: "/dashboard", etiqueta: "Resumen", icono: LayoutDashboard },
@@ -39,8 +40,7 @@ export default function DashboardLayout({
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Topbar */}
-      <header className="sticky top-0 z-50 glass-dark shadow-2xl animate-slide-down">
+      {!MODO_PRESENTACION && <header className="sticky top-0 z-50 glass-dark shadow-2xl animate-slide-down">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="flex items-center justify-between h-[4.25rem]">
             {/* Logo + Nombre */}
@@ -166,7 +166,7 @@ export default function DashboardLayout({
             </div>
           </div>
         )}
-      </header>
+      </header>}
 
       {/* Contenido principal */}
       <main className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-8 sm:py-10 animate-fade-in">

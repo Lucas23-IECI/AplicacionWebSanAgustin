@@ -1,14 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import {
   Users,
   QrCode,
   BarChart3,
-  ArrowRight,
-  CheckCircle2,
   ScanLine,
   Monitor,
   ChevronRight,
@@ -18,6 +15,7 @@ import {
   UserCheck,
 } from "lucide-react";
 import LogoColegio from "@/components/LogoColegio";
+import { MODO_PRESENTACION } from "@/lib/modoPresentacion";
 
 const heroImages = [
   "/Imagenes/Colegio/FotoColegio1.jpeg",
@@ -99,13 +97,6 @@ const flujo = [
   },
 ];
 
-const beneficios = [
-  "Funciona con el lector QR que ya tiene el colegio",
-  "Registro en menos de 1 segundo por estudiante",
-  "Reportes de consumo diarios, semanales y mensuales",
-  "No requiere celulares — cumple normativa escolar",
-];
-
 export default function PaginaPrincipal() {
   const [currentImage, setCurrentImage] = useState(0);
 
@@ -134,20 +125,7 @@ export default function PaginaPrincipal() {
               </p>
             </div>
           </div>
-          <nav className="flex items-center gap-4">
-            <Link
-              href="/login"
-              className="text-sm font-medium text-gray-500 hover:text-primary transition-colors hidden sm:block"
-            >
-              Iniciar Sesión
-            </Link>
-            <Link
-              href="/dashboard"
-              className="btn btn-primary text-sm shadow-md shadow-primary/20"
-            >
-              Panel de Control
-            </Link>
-          </nav>
+          {!MODO_PRESENTACION && <div className="w-24" />}
         </div>
       </header>
 
@@ -191,21 +169,10 @@ export default function PaginaPrincipal() {
               registro por código QR y reportes para la administración.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
-              <Link
-                href="/dashboard"
-                className="btn bg-accent hover:bg-accent-light text-white text-base px-10 py-4 shadow-xl shadow-accent/40 font-bold text-lg"
-              >
-                Ver el Sistema
-                <ArrowRight size={20} />
-              </Link>
-              <Link
-                href="/login"
-                className="btn bg-white/20 text-white border-2 border-white hover:bg-white/30 text-base px-10 py-4 font-bold backdrop-blur-sm text-lg"
-              >
-                Iniciar Sesión
-              </Link>
-            </div>
+            {!MODO_PRESENTACION && (
+              <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+              </div>
+            )}
           </div>
         </div>
 
@@ -339,123 +306,43 @@ export default function PaginaPrincipal() {
       </section>
 
       {/* ═══════════ BANNER ALUMNOS 2 + FOTO COLEGIO ═══════════ */}
-      <section className="bg-white">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 py-20 sm:py-28">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            {/* Foto */}
-            <div className="relative h-72 sm:h-80 lg:h-96 rounded-3xl overflow-hidden shadow-lg">
-              <Image
-                src="/Imagenes/Alumnos/FotoAlumnos2.jpeg"
-                alt="Estudiantes del Colegio San Agustín"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </div>
-            {/* Texto */}
-            <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
-              <h3 className="text-3xl sm:text-4xl font-black text-gray-900 mb-5 tracking-tight">
-                Digitalización del comedor escolar
-              </h3>
-              <p className="text-gray-500 text-base sm:text-lg leading-relaxed mb-6">
-                Actualmente el control de almuerzos se realiza de forma manual.
-                Este sistema permite automatizar el registro con el lector QR
-                que ya posee el colegio, eliminando errores y ahorrando tiempo
-                al personal.
-              </p>
-              <div className="space-y-3">
-                {[
-                  "Reemplaza el registro manual en papel",
-                  "Información disponible al instante",
-                  "Fácil de usar para el personal del comedor",
-                ].map((item) => (
-                  <div key={item} className="flex items-center gap-3">
-                    <CheckCircle2 size={18} className="text-success flex-shrink-0" />
-                    <span className="text-gray-600 text-sm font-medium">
-                      {item}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════ ACCESO AL SISTEMA ═══════════ */}
-      <section className="bg-gray-50 border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 py-20 sm:py-28">
-          <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
-            <div className="grid grid-cols-1 lg:grid-cols-2">
-              {/* Lado izquierdo - beneficios */}
-              <div className="bg-gradient-to-br from-primary via-primary-light to-primary p-10 sm:p-14 flex flex-col justify-center relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-48 h-48 bg-accent/10 rounded-full blur-[60px]" />
-                <div className="relative">
-                  <h3 className="text-3xl font-black text-white mb-4 tracking-tight">
-                    Características del sistema
-                  </h3>
-                  <p className="text-white/60 text-base leading-relaxed mb-8">
-                    Diseñado para las necesidades del comedor escolar del
-                    Colegio San Agustín.
-                  </p>
-                  <div className="space-y-4">
-                    {beneficios.map((b) => (
-                      <div key={b} className="flex items-center gap-3">
-                        <div className="flex-shrink-0 w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center">
-                          <CheckCircle2 size={14} className="text-accent" />
-                        </div>
-                        <span className="text-white/80 text-sm font-medium">
-                          {b}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              {/* Lado derecho - foto del colegio + acceso */}
-              <div className="relative overflow-hidden">
+      {!MODO_PRESENTACION && (
+        <section className="bg-white">
+          <div className="max-w-7xl mx-auto px-6 sm:px-10 py-20 sm:py-28">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div className="relative h-72 sm:h-80 lg:h-96 rounded-3xl overflow-hidden shadow-lg">
                 <Image
-                  src="/Imagenes/Colegio/FotoColegio3.jpeg"
-                  alt="Colegio San Agustín de Concepción"
+                  src="/Imagenes/Alumnos/FotoAlumnos2.jpeg"
+                  alt="Estudiantes del Colegio San Agustín"
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
-                <div className="absolute inset-0 bg-white/85 backdrop-blur-[2px]" />
-                <div className="relative p-10 sm:p-14 flex flex-col items-center justify-center h-full min-h-[300px]">
-                  <div className="flex flex-col items-center text-center">
-                    <div className="bg-white rounded-2xl p-4 shadow-md border border-gray-100 mb-6">
-                      <LogoColegio variante="grande" />
-                    </div>
-                    <h4 className="text-lg font-bold text-gray-900 tracking-tight">
-                      Accede al sistema
-                    </h4>
-                    <p className="text-gray-500 text-sm mt-2 max-w-xs leading-relaxed">
-                      Ingresa al panel de control para ver el sistema en
-                      funcionamiento.
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-3 mt-8">
-                      <Link
-                        href="/dashboard"
-                        className="btn btn-primary px-8 py-3.5 shadow-lg shadow-primary/20"
-                      >
-                        Ir al Panel de Control
-                        <ArrowRight size={16} />
-                      </Link>
-                      <Link
-                        href="/login"
-                        className="btn btn-outline px-8 py-3.5"
-                      >
-                        Iniciar Sesión
-                      </Link>
-                    </div>
-                  </div>
-                </div>
+              </div>
+              <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
+                <h3 className="text-3xl sm:text-4xl font-black text-gray-900 mb-5 tracking-tight">
+                  Digitalización del comedor escolar
+                </h3>
+                <p className="text-gray-500 text-base sm:text-lg leading-relaxed mb-6">
+                  Actualmente el control de almuerzos se realiza de forma manual.
+                  Este sistema permite automatizar el registro con el lector QR
+                  que ya posee el colegio, eliminando errores y ahorrando tiempo
+                  al personal.
+                </p>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* ═══════════ ACCESO AL SISTEMA ═══════════ */}
+      {!MODO_PRESENTACION && (
+        <section className="bg-gray-50 border-t border-gray-100">
+          <div className="max-w-7xl mx-auto px-6 sm:px-10 py-20 sm:py-28">
+            <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden" />
+          </div>
+        </section>
+      )}
 
       {/* ═══════════ FOOTER ═══════════ */}
       <footer className="bg-white border-t border-gray-200">
